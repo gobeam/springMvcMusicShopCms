@@ -1,13 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text="${title}">Page Title</title>
-</head>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('favorites')"></head>
 <body>
+<!--<div th:replace="layout :: nav"></div>-->
+<!--<div th:replace="layout :: searchbar"></div>-->
+<!--<div th:replace="layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+    <!--<div class="col s9= l12">-->
+        <!--<h2 th:text="${username}">Jane Doe</h2>-->
+        <!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<h1 th:text="${pageHeading}">My First Heading1</h1>
-<img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png" th:src="${imgUrl}" />
 
+<h1>hello</h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<div th:replace="layout :: scripts"></div>
 </body>
 </html>
