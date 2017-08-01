@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.music.setup", "com.music.cms" })
+@ComponentScan(basePackages = { "com.music.setup", "com.music.cms.backend","com.music.cms.frontend" })
 public class ApplicationConfiguration {
 
 }

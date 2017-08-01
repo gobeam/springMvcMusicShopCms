@@ -1,270 +1,297 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<head th:replace="frontend/fragment/layout :: head('favorites')"></head>
 <body>
-<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
-<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
-<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div th:replace="frontend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="frontend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="frontend/fragment/layout :: flash"></div>-->
 <!--<div class="row user-meta">-->
-    <!--<div class="col s9= l12">-->
-        <!--<h2 th:text="${username}">Jane Doe</h2>-->
-        <!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
-    <!--</div>-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
 <!--</div>-->
 
-<!--start-header-->
-<div class="header" id="home">
-    <div class="header-top">
-        <div class="container">
-            <div class="logo">
-                <a href="index.html"><h1>MyAlbums</h1></a>
-            </div>
-            <div class="header-right">
-                <div class="cart box_1">
-                    <a href="checkout.html">
-                        <h3> <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span> items)<img th:src="@{/resources/images/cart.png}" alt=""></h3>
-                    </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty card</a></p>
-                    <div class="clearfix"> </div>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-    </div>
-    <!--start-nav-->
-    <div class="top-nav">
-        <div class="container">
-            <div class="home"><a href="index.html"><i class="glyphicon glyphicon-home"> </i></a></div>
-            <span class="menu"> </span>
-            <div class="top-menu">
-                <nav class="navigation">
-                    <ul class="cl-effect-16">
-                        <li><a class="active" href="index.html">Home</a></li>
-                        <li><a href="favorites.html">Favorites</a></li>
-                        <li><a href="artists.html">Artists</a></li>
-                        <li><a href="typography.html">specials</a></li>
-                        <li><a href="albums.html">Recent Albums</a></li>
-                        <li><a href="contact.html">contact</a></li>
+<div id="wrapper">
+
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="drop-men" >
+        <ul class=" nav_1">
+
+            <li class="dropdown at-drop">
+                <a href="#" class="dropdown-toggle dropdown-at " data-toggle="dropdown"><i class="fa fa-globe"></i> <span class="number">5</span></a>
+                <ul class="dropdown-menu menu1 " role="menu">
+                    <li><a href="#">
+
+                        <div class="user-new">
+                            <p>New user registered</p>
+                            <span>40 seconds ago</span>
+                        </div>
+                        <div class="user-new-left">
+
+                            <i class="fa fa-user-plus"></i>
+                        </div>
                         <div class="clearfix"> </div>
-                    </ul>
+                    </a></li>
+                    <li><a href="#">
+                        <div class="user-new">
+                            <p>Someone special liked this</p>
+                            <span>3 minutes ago</span>
+                        </div>
+                        <div class="user-new-left">
 
-                </nav>
-            </div>
-            <div id="sb-search" class="sb-search">
-                <form>
-                    <input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-                    <input class="sb-search-submit" type="submit" value="">
-                    <span class="sb-icon-search"> </span>
-                </form>
-            </div>
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </a></li>
+                    <li><a href="#">
+                        <div class="user-new">
+                            <p>John cancelled the event</p>
+                            <span>4 hours ago</span>
+                        </div>
+                        <div class="user-new-left">
 
+                            <i class="fa fa-times"></i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </a></li>
+                    <li><a href="#">
+                        <div class="user-new">
+                            <p>The server is status is stable</p>
+                            <span>yesterday at 08:30am</span>
+                        </div>
+                        <div class="user-new-left">
 
-            <!-- //search-scripts -->
-            <script th:src="@{/resources/js/classie.js}"></script>
-            <script th:src="@{/resources/js/uisearch.js}"></script>
-            <script>
-                new UISearch( document.getElementById( 'sb-search' ) );
-            </script>
+                            <i class="fa fa-info"></i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </a></li>
+                    <li><a href="#">
+                        <div class="user-new">
+                            <p>New comments waiting approval</p>
+                            <span>Last Week</span>
+                        </div>
+                        <div class="user-new-left">
 
-            <div class="clearfix"> </div>
-
-        </div>
-    </div>
-</div>
-<!--banner-slider-->
-<div class="banner">
-    <div id="top" class="callbacks_container">
-        <ul class="rslides" id="slider">
-            <li>
-                <img th:src="@{/resources/images/3.jpg}" class="img-responsive" alt="" />
+                            <i class="fa fa-rss"></i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </a></li>
+                    <li><a href="#" class="view">View all messages</a></li>
+                </ul>
             </li>
-            <li>
-                <img th:src="@{/resources/images/2.jpg}" class="img-responsive" alt="" />
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">Rackham<i class="caret"></i></span><img src="images/wo.jpg"></a>
+                <ul class="dropdown-menu " role="menu">
+                    <li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>
+                    <li><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox</a></li>
+                    <li><a href="calendar.html"><i class="fa fa-calendar"></i>Calender</a></li>
+                    <li><a href="inbox.html"><i class="fa fa-clipboard"></i>Tasks</a></li>
+                </ul>
             </li>
-            <li>
-                <img th:src="@{/resources/images/1.jpg}" class="img-responsive" alt="" />
-            </li>
+
         </ul>
+    </div><!-- /.navbar-collapse -->
+    <div class="clearfix">
+
+    </div>
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+
+                <li>
+                    <a href="index.html" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboards</span> </a>
+                </li>
+
+                <li>
+                    <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Menu Levels</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="graphs.html" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Graphs</a></li>
+
+                        <li><a href="maps.html" class=" hvr-bounce-to-right"><i class="fa fa-map-marker nav_icon"></i>Maps</a></li>
+
+                        <li><a href="typography.html" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Typography</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="inbox.html" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Inbox</span> </a>
+                </li>
+
+                <li>
+                    <a href="gallery.html" class=" hvr-bounce-to-right"><i class="fa fa-picture-o nav_icon"></i> <span class="nav-label">Gallery</span> </a>
+                </li>
+                <li>
+                    <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Pages</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="404.html" class=" hvr-bounce-to-right"> <i class="fa fa-info-circle nav_icon"></i>Error 404</a></li>
+                        <li><a href="faq.html" class=" hvr-bounce-to-right"><i class="fa fa-question-circle nav_icon"></i>FAQ</a></li>
+                        <li><a href="blank.html" class=" hvr-bounce-to-right"><i class="fa fa-file-o nav_icon"></i>Blank</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="layout.html" class=" hvr-bounce-to-right"><i class="fa fa-th nav_icon"></i> <span class="nav-label">Grid Layouts</span> </a>
+                </li>
+
+                <li>
+                    <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-list nav_icon"></i> <span class="nav-label">Forms</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="forms.html" class=" hvr-bounce-to-right"><i class="fa fa-align-left nav_icon"></i>Basic forms</a></li>
+                        <li><a href="validation.html" class=" hvr-bounce-to-right"><i class="fa fa-check-square-o nav_icon"></i>Validation</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="signin.html" class=" hvr-bounce-to-right"><i class="fa fa-sign-in nav_icon"></i>Signin</a></li>
+                        <li><a href="signup.html" class=" hvr-bounce-to-right"><i class="fa fa-sign-in nav_icon"></i>Singup</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="content-main">
+
+            <!--banner-->
+            <div class="banner">
+
+                <h2>
+                    <a href="index.html">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                    <span>Dashboard</span>
+                </h2>
+            </div>
+            <!--//banner-->
+            <!--content-->
+            <div class="content-top">
+
+
+                <div class="col-md-4 ">
+                    <div class="content-top-1">
+                        <div class="col-md-6 top-content">
+                            <h5>Tasks</h5>
+                            <label>8761</label>
+                        </div>
+                        <div class="col-md-6 top-content1">
+                            <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="content-top-1">
+                        <div class="col-md-6 top-content">
+                            <h5>Points</h5>
+                            <label>6295</label>
+                        </div>
+                        <div class="col-md-6 top-content1">
+                            <div id="demo-pie-2" class="pie-title-center" data-percent="50"> <span class="pie-value"></span> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="content-top-1">
+                        <div class="col-md-6 top-content">
+                            <h5>Cards</h5>
+                            <label>3401</label>
+                        </div>
+                        <div class="col-md-6 top-content1">
+                            <div id="demo-pie-3" class="pie-title-center" data-percent="75"> <span class="pie-value"></span> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="col-md-8 content-top-2">
+                    <!---start-chart---->
+                    <!----->
+                    <div class="content-graph">
+                        <div class="content-color">
+                            <div class="content-ch"><p><i></i>Chrome </p><span>100%</span>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="content-ch1"><p><i></i>Safari</p><span> 50%</span>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="graph-container">
+
+                            <div id="graph-lines"> </div>
+                            <div id="graph-bars"> </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+
+
+            <div class="content-mid">
+
+                <div class="col-md-5">
+                    <div class="cal1 cal_2"><div class="clndr"><div class="clndr-controls"><div class="clndr-control-button"><p class="clndr-previous-button">previous</p></div><div class="month">July 2015</div><div class="clndr-control-button rightalign"><p class="clndr-next-button">next</p></div></div><table class="clndr-table" border="0" cellspacing="0" cellpadding="0"><thead><tr class="header-days"><td class="header-day">S</td><td class="header-day">M</td><td class="header-day">T</td><td class="header-day">W</td><td class="header-day">T</td><td class="header-day">F</td><td class="header-day">S</td></tr></thead><tbody><tr><td class="day adjacent-month last-month calendar-day-2015-06-28"><div class="day-contents">28</div></td><td class="day adjacent-month last-month calendar-day-2015-06-29"><div class="day-contents">29</div></td><td class="day adjacent-month last-month calendar-day-2015-06-30"><div class="day-contents">30</div></td><td class="day calendar-day-2015-07-01"><div class="day-contents">1</div></td><td class="day calendar-day-2015-07-02"><div class="day-contents">2</div></td><td class="day calendar-day-2015-07-03"><div class="day-contents">3</div></td><td class="day calendar-day-2015-07-04"><div class="day-contents">4</div></td></tr><tr><td class="day calendar-day-2015-07-05"><div class="day-contents">5</div></td><td class="day calendar-day-2015-07-06"><div class="day-contents">6</div></td><td class="day calendar-day-2015-07-07"><div class="day-contents">7</div></td><td class="day calendar-day-2015-07-08"><div class="day-contents">8</div></td><td class="day calendar-day-2015-07-09"><div class="day-contents">9</div></td><td class="day calendar-day-2015-07-10"><div class="day-contents">10</div></td><td class="day calendar-day-2015-07-11"><div class="day-contents">11</div></td></tr><tr><td class="day calendar-day-2015-07-12"><div class="day-contents">12</div></td><td class="day calendar-day-2015-07-13"><div class="day-contents">13</div></td><td class="day calendar-day-2015-07-14"><div class="day-contents">14</div></td><td class="day calendar-day-2015-07-15"><div class="day-contents">15</div></td><td class="day calendar-day-2015-07-16"><div class="day-contents">16</div></td><td class="day calendar-day-2015-07-17"><div class="day-contents">17</div></td><td class="day calendar-day-2015-07-18"><div class="day-contents">18</div></td></tr><tr><td class="day calendar-day-2015-07-19"><div class="day-contents">19</div></td><td class="day calendar-day-2015-07-20"><div class="day-contents">20</div></td><td class="day calendar-day-2015-07-21"><div class="day-contents">21</div></td><td class="day calendar-day-2015-07-22"><div class="day-contents">22</div></td><td class="day calendar-day-2015-07-23"><div class="day-contents">23</div></td><td class="day calendar-day-2015-07-24"><div class="day-contents">24</div></td><td class="day calendar-day-2015-07-25"><div class="day-contents">25</div></td></tr><tr><td class="day calendar-day-2015-07-26"><div class="day-contents">26</div></td><td class="day calendar-day-2015-07-27"><div class="day-contents">27</div></td><td class="day calendar-day-2015-07-28"><div class="day-contents">28</div></td><td class="day calendar-day-2015-07-29"><div class="day-contents">29</div></td><td class="day calendar-day-2015-07-30"><div class="day-contents">30</div></td><td class="day calendar-day-2015-07-31"><div class="day-contents">31</div></td><td class="day adjacent-month next-month calendar-day-2015-08-01"><div class="day-contents">1</div></td></tr></tbody></table></div></div>
+
+                </div>
+                <div class="col-md-7 mid-content-top">
+                    <div class="middle-content">
+                        <h3>Latest Images</h3>
+                        <!-- start content_slider -->
+                        <div id="owl-demo" class="owl-carousel text-center">
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na1.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na2.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na1.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na2.jpg" alt="name">
+                            </div>
+                            <div class="item">
+                                <img class="lazyOwl img-responsive" data-src="images/na.jpg" alt="name">
+                            </div>
+
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $("#owl-demo").owlCarousel({
+                                items : 3,
+                                lazyLoad : true,
+                                autoPlay : true,
+                                pagination : true,
+                                nav:true,
+                            });
+                        });
+                    </script>
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="copy">
+                <p> &copy; 2016 Minimal. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
     </div>
 </div>
 
-<!--//end-banner-->
-</div>
-<!--start-albums-->
-<div class="clearfix"></div>
-<div class="albums">
-    <div class="container">
-        <div class="album-info">
-            <div class="col-md-3 album">
-                <div class="album-box">
-                    <h4>Music</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="col-md-3 album">
-                <div class="album-box">
-                    <h4>ALBUMS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="col-md-3 album">
-                <div class="album-box">
-                    <h4>SONGS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="col-md-3 album lost">
-                <div class="album-box">
-                    <h4>VIDEOS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="music-info">
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m1.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m2.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m3.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="music-info two">
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m4.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m6.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m5.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="music-info two">
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m1.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m2.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m3.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-<!--//music-->
-<!--footer-->
-<div class="footer">
-    <div class="container">
-        <div class="footer-top">
-            <div class="col-md-4 amet-sed">
-                <h4>Follow Us</h4>
-                <ul class="social">
-                    <li><a  href="#" ><i class="fb"> </i> </a></li>
-                    <li><a  href="#" ><i  class="rss"></i></a></li>
-                    <li><a  href="#" ><i class="twitter"></i></a></li>
-                    <li><a href="#"><i class="dribble"></i></a></li>
-                    <div class="clearfix"></div>
-                </ul>
-                <ul class="social-in">
-                    <li><i class="glyphicon glyphicon-home two"> </i>sector 21 , main road </li>
-                    <li><i class="glyphicon glyphicon-earphone"> </i> +71999-56985</li>
-                    <li><a href="mailto:contact@example.com"><i class="glyphicon glyphicon-envelope"> </i> contact@example.com</a></li>
-                    <div class="clearfix"> </div>
-                </ul>
-            </div>
-            <div class="col-md-4 amet-sed ">
-                <h4>Twitter Feed</h4>
-                <p><a href="#">@ Music</a> Lorem ipsum is simply dummy is simply dummy text, text hid Lorem ipsum is simply dummy text.</p>
-                <p><a href="#">@ Music</a> Lorem ipsum is simply dummy is simply dummy text, text hid Lorem ipsum is simply dummy text.</p>
-            </div>
-            <div class="col-md-4 amet-sed amet-in">
-                <h4>Photo Stream</h4>
-                <ul>
-                    <li><a href="#"><img th:src="@{/resources/images/f.jpg}" alt="" class="img-responsive"></a></li>
-                    <li><a href="#"><img th:src="@{/resources/images/f2.jpg}" alt="" class="img-responsive"></a></li>
-                    <li><a href="#"><img th:src="@{/resources/images/f3.jpg}" alt="" class="img-responsive"></a></li>
-                    <li><a href="#"><img th:src="@{/resources/images/f4.jpg}" alt="" class="img-responsive"></a></li>
-                    <li><a href="#"><img th:src="@{/resources/images/f2.jpg}" alt="" class="img-responsive"></a></li>
-                    <li><a href="#"><img th:src="@{/resources/images/f3.jpg}" alt="" class="img-responsive"></a></li>
-                    <div class="clearfix"> </div>
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-        <div class="copy">
-            <p>&copy; 2015 My_Albums. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a> </p>
-        </div>
-    </div>
-</div>
 
-<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-
-
-
-
-
-<div th:replace="backend/fragment/layout :: scripts"></div>
+<div th:replace="frontend/fragment/layout :: scripts"></div>
 </body>
 </html>

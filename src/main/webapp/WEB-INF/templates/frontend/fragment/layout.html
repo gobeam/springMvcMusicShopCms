@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(page_title)" lang="en">
+    <meta charset="UTF-8"/>
+    <meta description="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--<link rel="icon" th:href="@{/favicon.png}" />-->
+
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/popuo-box.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/flexslider.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <!--web-fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:300italic,400italic,600italic,400,600,700' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Audiowide|Open+Sans:300italic,400italic,600italic,700,300,600,400' rel='stylesheet' type='text/css'/>
+    <!--//web-fonts-->
+    <script th:src="@{/resources/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+
+    <script th:src="@{/resources/js/custom.js}"></script>
+    <title th:text="'Music Library | ' + ${page_title}">Music Library</title>
+</head>
+
+<body>
+
+
+<div th:fragment="scripts">
+    <!--<script th:src="@{/resources/vendor/jquery/jquery-1.11.3.js}"></script>-->
+
+    <!-- Latest compiled and minified JavaScript -->
+
+
+
+
+
+
+    <script th:src="@{/resources/js/jquery.flexslider.js}"></script>
+    <script th:src="@{/resources/js/jquery.magnific-popup.js}"></script>
+    <script th:src="@{/resources/js/simpleCart.min.js}"></script>
+
+    <script th:src="@{/resources/js/responsiveslides.min.js}"></script>
+
+    <!--start-smoth-scrolling-->
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+    </script>
+    <!--start-smoth-scrolling-->
+    <script type="text/javascript">
+//        $(document).ready(function() {
+//            /*
+//             var defaults = {
+//             containerID: 'toTop', // fading element id
+//             containerHoverID: 'toTopHover', // fading element hover id
+//             scrollSpeed: 1200,
+//             easingType: 'linear'
+//             };
+//             */
+//
+//            $().UItoTop({ easingType: 'easeOutQuart' });
+//
+//        });
+    </script>
+
+    <script>
+        // You can also use "$(window).load(function() {"
+        $(function () {
+            // Slideshow 3
+            $("#slider").responsiveSlides({
+                auto: true,
+                pager:true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+
+        });
+
+        new UISearch( document.getElementById( 'sb-search' ) );
+
+        $( "span.menu" ).click(function() {
+            $( ".top-menu" ).slideToggle( "slow", function() {
+                // Animation complete.
+            });
+        });
+    </script>
+
+</div>
+
+</body>
+</html>
