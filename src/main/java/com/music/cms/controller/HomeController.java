@@ -12,6 +12,6 @@ public class HomeController {
         model.addAttribute("title", "Spring MVC with Thymeleaf");
         model.addAttribute("pageHeading", "Spring MVC with Thymeleaf");
         model.addAttribute("imgUrl", "http://www.thymeleaf.org/doc/tutorials/2.1/images/header.png");
-        return "index";
+        return "backend/home/index";
     }
 }
