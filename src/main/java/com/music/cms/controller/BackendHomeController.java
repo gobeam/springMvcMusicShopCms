@@ -1,4 +1,4 @@
-package com.music.cms.backend.controller;
+package com.music.cms.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
