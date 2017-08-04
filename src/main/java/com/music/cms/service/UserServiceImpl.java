@@ -42,24 +42,5 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(s);
-        List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-        return buildUserForAuthentication(user, authorities);
-    }
 
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
-        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
-        for (Role role : userRoles) {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
-        }
-
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(roles);
-        return grantedAuthorities;
-    }
-
-    private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getStatus(), true, true, true, authorities);
-    }
 }

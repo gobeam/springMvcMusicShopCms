@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userService")
+    @Qualifier("systemUserDetailService")
     UserDetailsService userService;
 
     @Autowired
@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userService);
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setUserDetailsService(userService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
         PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices(
-                "remember-me", userDetailsService, tokenRepository);
+                "remember-me", userService, tokenRepository);
         return tokenBasedservice;
     }
 
