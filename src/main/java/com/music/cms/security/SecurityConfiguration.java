@@ -1,5 +1,7 @@
 package com.music.cms.security;
 
+import com.music.cms.service.UserService;
+import com.music.cms.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,14 +18,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
+    @Qualifier("userService")
+    UserDetailsService userService;
 
     @Autowired
     PersistentTokenRepository tokenRepository;

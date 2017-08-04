@@ -36,6 +36,20 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring.mvc.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.mvc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.mvc.version}</version>
+        </dependency>
+
+        <!-- orm -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
@@ -43,10 +57,12 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.mvc.version}</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.11.2.RELEASE</version>
         </dependency>
+
+
 
         <!-- thymeleaf -->
         <dependency>
@@ -118,6 +134,8 @@
         <artifactId>spring-security-taglibs</artifactId>
         <version>${springsecurity.version}</version>
         </dependency>
+
+
 
     </dependencies>
 
