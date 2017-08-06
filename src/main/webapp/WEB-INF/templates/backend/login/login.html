@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="login">
+    <h1><a href="index.html">Minimal </a></h1>
+    <div class="login-bottom">
+        <h2>Login</h2>
+        <form th:action="@{/login}" method="POST" >
+            <div class="col-md-6">
+                <div class="login-mail">
+                    <input type="text" name="email" id="email" th:placeholder="Email" required="">
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="login-mail">
+                    <input type="password" name="password" id="password" th:placeholder="Password" required="">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <a class="news-letter " href="#">
+                    <label class="checkbox1"><input type="checkbox" name="remember-me" ><i> </i>Remember Me</label>
+                </a>
+
+
+            </div>
+            <div class="col-md-6 login-do">
+                <label class="hvr-shutter-in-horizontal login-sub">
+                    <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+                </label>
+                <p>Do not have an account?</p>
+                <a href="signup.html" class="hvr-shutter-in-horizontal">Signup</a>
+            </div>
+
+            <div class="clearfix"> </div>
+        </form>
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>

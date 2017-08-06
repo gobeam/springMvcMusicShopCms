@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BackendHomeController {
 
     @RequestMapping(value = "/admin/home",method = RequestMethod.GET)
-    public String printWelcome(ModelMap model) {
+    public String index(ModelMap model) {
         model.addAttribute("title", "Spring MVC with Thymeleaf");
-        model.addAttribute("pageHeading", "Spring MVC with Thymeleaf");
-        model.addAttribute("imgUrl", "http://www.thymeleaf.org/doc/tutorials/2.1/images/header.png");
         return "backend/home/index";
     }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(ModelMap model) {
+        model.addAttribute("title", "Admin Login");
+        return "backend/login/login";
+    }
+
+
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Email(message = "Please privide valid email!")
     @NotEmpty(message = "Email cannot be empty!")
@@ -55,17 +55,17 @@ public class User {
 
     @Transient
     @NotNull(message = "Role must be specified!")
-    private Long role_id;
+    private Integer role_id;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -165,11 +165,11 @@ public class User {
         this.status = status;
     }
 
-    public Long getRole_id() {
+    public Integer getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(Long role_id) {
+    public void setRole_id(Integer role_id) {
         this.role_id = role_id;
     }
 }
