@@ -23,6 +23,8 @@ public class BackendHomeController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(ModelMap model) {
         User user = userService.findById(1);
+        System.out.println("roshan rana");
+        System.out.println(user.getEmail());
         model.addAttribute("title", "Admin Login");
         return "backend/login/login";
     }

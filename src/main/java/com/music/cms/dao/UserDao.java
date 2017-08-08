@@ -9,13 +9,16 @@ import java.util.List;
  */
 public interface UserDao {
 
-    User findById(Integer id);
+    User findById(int id);
 
-    User findByEmail(String email);
+    User findByEmail(String Email);
 
     void save(User user);
 
-    void deleteById(Long id);
+    void update(User user);
+
+    void deleteById(int id);
 
     List<User> findAllUsers();
+
 }
