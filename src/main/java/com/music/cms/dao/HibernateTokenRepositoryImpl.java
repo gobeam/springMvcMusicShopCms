@@ -42,9 +42,12 @@ public class HibernateTokenRepositoryImpl
 		try {
 			Session session = sessionFactory.openSession();
 			PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(seriesId));
-
+			session.close();
 			return new PersistentRememberMeToken(persistentLogin.getUsername(), persistentLogin.getSeries(),
 					persistentLogin.getToken(), persistentLogin.getLast_used());
+
+
+
 		} catch (Exception e) {
 			return null;
 		}
@@ -52,6 +55,7 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public void removeUserTokens(String username) {
+		try {
 		Session session = sessionFactory.openSession();
 		PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(username));
 		Transaction tx = session.beginTransaction();
@@ -60,6 +64,9 @@ public class HibernateTokenRepositoryImpl
 		}
 		tx.commit();
 		session.close();
+		} catch (Exception e) {
+
+		}
 
 	}
 

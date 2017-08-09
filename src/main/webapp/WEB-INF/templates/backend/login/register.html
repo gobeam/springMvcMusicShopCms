@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="login">
+    <h1><a href="#">Minimal </a></h1>
+    <div class="login-bottom">
+        <form autocomplete="off" action="#" th:action="@{/registration}"
+              th:object="${user}" method="post" class="form-horizontal"
+              role="form">
+        <h2>Register</h2>
+
+            <span th:utext="${successMessage}"></span>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{first_name}" placeholder="First Name"
+                       class="form-control" />
+            </div>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{last_name}" placeholder="Last Name"
+                       class="form-control" />
+            </div>
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{email}" placeholder="Email"
+                       class="form-control" />
+            </div>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{address}" placeholder="Address"
+                       class="form-control" />
+            </div>
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{phone}" placeholder="Phone"
+                       class="form-control" />
+            </div>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{zip}" placeholder="Zip"
+                       class="form-control" />
+            </div>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('country')}" th:errors="*{country}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{country}" placeholder="Country"
+                       class="form-control" />
+            </div>
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{city}" placeholder="City"
+                       class="form-control" />
+            </div>
+
+
+            <div class="login-mail">
+                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                       class="validation-message"></label>
+                <input type="password" th:field="*{password}" placeholder="Password"
+                       class="form-control" />
+            </div>
+
+
+            <div class="login-mail">
+                <button class="btn btn-lg btn-primary btn-block" name="Submit" value="register" type="Submit" th:text="Register"></button>
+            </div>
+
+
+</form>
+
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>
