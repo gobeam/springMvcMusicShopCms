@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -41,8 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
+                .antMatchers("/login*").permitAll()
+                .antMatchers(HttpMethod.POST,"/registration*").permitAll()
+                .antMatchers("/registration*").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
@@ -56,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().csrf()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-                .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+                .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/access-denied");
 
     }
 
@@ -90,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/assets/**","/vendor/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/assets/**","/templates/**");
     }
 
 }

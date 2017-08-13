@@ -2,17 +2,16 @@ package com.music.cms.dao;
 
 import com.music.cms.model.User;
 import org.hibernate.*;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Locale;
+import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alis on 8/6/17.
@@ -36,12 +35,29 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional(readOnly=true)
     public User findByEmail(String email) {
         Session session = sessionFactory.openSession();
-        User user = (User) session.load(User.class, new String(email));
-        logger.info("User loaded successfully, User details="+user);
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("email"), email));
+        Query<User> q=session.createQuery(query);
+        List<User> user=q.getResultList();
+        if (!user.isEmpty())
+        {
+            Hibernate.initialize(user.get(0).getRoles());
+        }
+
         session.close();
-        return user;
+
+        if (user.isEmpty()) return null;
+        else if (user.size() == 1) return user.get(0);
+        throw new NonUniqueResultException(user.size());
+
+
+
     }
 
     @Override

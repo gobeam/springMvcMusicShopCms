@@ -15,7 +15,7 @@
 <div class="login">
     <h1><a href="#">Minimal </a></h1>
     <div class="login-bottom">
-        <form autocomplete="off" action="#" th:action="@{/registration}"
+        <form autocomplete="off" th:action="@{/registration}"
               th:object="${user}" method="post" class="form-horizontal"
               role="form">
         <h2>Register</h2>
@@ -75,6 +75,7 @@
                 <input type="text" th:field="*{city}" placeholder="City"
                        class="form-control" />
             </div>
+            <input type="hidden" name="status" value="true">
 
 
             <div class="login-mail">

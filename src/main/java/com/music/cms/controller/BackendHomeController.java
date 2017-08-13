@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -38,19 +39,24 @@ public class BackendHomeController {
     }
 
     @RequestMapping(value = "/registration",method = RequestMethod.POST)
-    public String registration(@Valid User user, ModelMap model, BindingResult result) {
+    public String registration(@Valid User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception {
+
+        if (result.hasErrors()) {
+            System.out.println(result);
+            return "backend/login/register";
+        }
+
         User userExist = userService.findUserByEmail(user.getEmail());
         if (userExist != null) {
             result
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
-        }
-        if (result.hasErrors()) {
-
-        } else {
+        }else{
             userService.saveUser(user);
-            model.addAttribute("successMessage", "User has been registered successfully");
+            //model.addAttribute("successMessage", "User has been registered successfully");
             model.addAttribute("user", new User());
+            redirectAttributes.addAttribute("successMessage", "User has been registered successfully");
+            return "redirect:/registration";
         }
         return "backend/login/register";
     }

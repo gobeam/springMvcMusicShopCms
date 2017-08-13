@@ -1,7 +1,7 @@
 package com.music.cms.security;
 
-import com.music.cms.dao.RoleDao;
-import com.music.cms.dao.UserDao;
+import com.music.cms.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 import com.music.cms.model.Role;
 import com.music.cms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +23,18 @@ import java.util.Set;
 public class SystemUserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserDao userRepository;
+    private UserService userService;
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(s);
+
+    @Transactional(readOnly=true)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userService.findUserByEmail(email);
+        System.out.println("hellyeah");
+        System.out.println(user.getRoles().toString());
+
+        if(user==null){
+            throw new UsernameNotFoundException("Username not found");
+        }
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }

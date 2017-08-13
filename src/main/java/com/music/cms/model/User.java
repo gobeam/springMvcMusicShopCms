@@ -13,12 +13,13 @@ import java.util.Set;
  * Created by alis on 8/3/17.
  */
 @Entity
+@NamedQuery(name = "User.byEmail", query ="from User where email = ?" )
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Email(message = "Please privide valid email!")
+    @Email(message = "Please provide valid email!")
     @NotEmpty(message = "Email cannot be empty!")
     private String email;
 
@@ -45,7 +46,7 @@ public class User {
     private String zip;
 
     @NotBlank(message = "Country cannot be blank!")
-    private String Country;
+    private String country;
 
     @NotBlank(message = "City cannot be blank!")
     private String city;
@@ -54,12 +55,15 @@ public class User {
     private Boolean status;
 
     @Transient
-    @NotNull(message = "Role must be specified!")
+//    @NotNull(message = "Role must be specified!")
     private Integer role_id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+   // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+
 
     public Integer getId() {
         return id;
@@ -126,11 +130,11 @@ public class User {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 
     public String getCity() {
