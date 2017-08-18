@@ -7,11 +7,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alis on 8/6/17.
  */
 @Repository("roleDao")
+@Transactional
 public class RoleDaoImpl implements RoleDao{
 
     @Autowired
