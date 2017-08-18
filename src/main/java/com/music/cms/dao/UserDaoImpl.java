@@ -1,5 +1,6 @@
 package com.music.cms.dao;
 
+import com.music.cms.model.Role;
 import com.music.cms.model.User;
 import org.hibernate.*;
 import org.slf4j.Logger;
@@ -62,12 +63,33 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.persist(user);
-        tx.commit();
-        session.close();
-        logger.info("User saved successfully, Person Details="+user);
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            session.persist(user);
+
+            tx.commit();
+            logger.info("User saved successfully, Person Details="+user);
+
+        }catch(RuntimeException e){
+            try{
+                tx.rollback();
+            }catch(RuntimeException rbe){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
+        }
+
     }
 
     @Override

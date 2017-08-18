@@ -4,6 +4,7 @@ import com.music.cms.model.Role;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,17 +23,71 @@ public class RoleDaoImpl implements RoleDao{
 
     @Override
     public Role findByRole(String role) {
-        Session session = sessionFactory.openSession();
-        Role roles = (Role) session.load(Role.class, new String(role));
-        session.close();
-        return roles;
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            Role roles = (Role) session.load(Role.class, new String(role));
+
+            tx.commit();
+            return roles;
+
+
+        }catch(RuntimeException e){
+            try{
+                tx.rollback();
+            }catch(RuntimeException rbe){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
+        }
+
     }
 
     @Override
     public Role findById(Integer id) {
-        Session session = sessionFactory.openSession();
-        Role roles = (Role) session.load(Role.class, new Integer(id));
-        session.close();
-        return roles;
+
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            Role roles = (Role) session.load(Role.class, new Integer(id));
+
+            tx.commit();
+            return roles;
+
+
+        }catch(RuntimeException e){
+            try{
+                tx.rollback();
+            }catch(RuntimeException rbe){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
+        }
+
+
+//        Session session = sessionFactory.openSession();
+//        Role roles = (Role) session.load(Role.class, new Integer(id));
+//        session.close();
+//        return roles;
     }
 }

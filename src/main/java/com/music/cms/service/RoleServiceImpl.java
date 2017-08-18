@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("roleService")
+@Transactional
 public class RoleServiceImpl implements RoleService{
 
     @Autowired
@@ -15,6 +16,5 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Role findById(Integer id) {
         return roleRepository.findById(id);
-
     }
 }
