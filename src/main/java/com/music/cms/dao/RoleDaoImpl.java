@@ -1,14 +1,14 @@
 package com.music.cms.dao;
 
 import com.music.cms.model.Role;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.management.Query;
 
 /**
  * Created by alis on 8/6/17.
@@ -64,10 +64,14 @@ public class RoleDaoImpl implements RoleDao{
             tx = session.beginTransaction();
             tx.setTimeout(5);
 
-            Role roles = (Role) session.load(Role.class, new Integer(id));
+           // Role roles = (Role) session.load(Role.class, new Integer(id));
+            org.hibernate.query.Query query = session.createQuery("from Role where id = :id ");
+            query.setParameter("id", id);
+
 
             tx.commit();
-            return roles;
+//            return roles;
+            return (Role)query.uniqueResult();
 
 
         }catch(RuntimeException e){
@@ -83,11 +87,5 @@ public class RoleDaoImpl implements RoleDao{
                 session.close();
             }
         }
-
-
-//        Session session = sessionFactory.openSession();
-//        Role roles = (Role) session.load(Role.class, new Integer(id));
-//        session.close();
-//        return roles;
     }
 }

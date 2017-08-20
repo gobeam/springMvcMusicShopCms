@@ -13,7 +13,6 @@ import java.util.Set;
  * Created by alis on 8/3/17.
  */
 @Entity
-@NamedQuery(name = "User.byEmail", query ="from User where email = ?" )
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -175,5 +174,23 @@ public class User {
 
     public void setRole_id(Integer role_id) {
         this.role_id = role_id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", address='" + address + '\'' +
+                ", image='" + image + '\'' +
+                ", phone='" + phone + '\'' +
+                ", zip='" + zip + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

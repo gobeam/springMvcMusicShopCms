@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<head th:replace="backend/fragment/layout :: head('Register')"></head>
 <body>
 <!--<div th:replace="backend/fragment/layout :: nav"></div>-->
 <!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
@@ -12,6 +12,7 @@
 <!--</div>-->
 <!--</div>-->
 
+
 <div class="login">
     <h1><a href="#">Minimal </a></h1>
     <div class="login-bottom">
@@ -20,7 +21,9 @@
               role="form">
         <h2>Register</h2>
 
-            <span th:utext="${successMessage}"></span>
+            <div th:replace="backend/fragment/layout :: flash"></div>
+
+            <!--<span th:utext="${successMessage}"></span>-->
 
             <div class="login-mail">
                 <label th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"

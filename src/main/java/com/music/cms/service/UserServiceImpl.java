@@ -21,9 +21,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userRepository;
 
-    @Autowired
-    private RoleDao roleRepository;
-
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -33,18 +30,6 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-       // user.setRole_id(1);
-        System.out.println("checkpoint");
-
-        //this is for test purpose only
-        Role userRole = roleRepository.findById(1);
-
-        if(userRole != null)
-        {
-            System.out.println(userRole);
-            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        }
-
         userRepository.save(user);
     }
 

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,9 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private RoleDao roleRepository;
 
 
     @Override
@@ -70,8 +75,24 @@ public class UserDaoImpl implements UserDao {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             tx.setTimeout(5);
-
+            System.out.println("addedsuccess");
             session.persist(user);
+
+            //this is for test purpose only
+            Role userRole = roleRepository.findById(1);
+            System.out.println(userRole);
+            System.out.println(userRole.getRole());
+
+            if(userRole != null)
+            {
+                System.out.println(userRole);
+                if(user != null)
+                {
+                    user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+                }
+
+            }
+            System.out.println((user));
 
             tx.commit();
             logger.info("User saved successfully, Person Details="+user);
