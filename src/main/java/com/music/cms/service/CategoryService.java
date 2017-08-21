@@ -2,10 +2,18 @@ package com.music.cms.service;
 
 import com.music.cms.model.Category;
 
+import java.util.List;
+
 public interface CategoryService {
-    public Category findById(String email);
+    void saveCategory(Category category);
 
-    public void saveCategory(Category category);
+    Category findById(Integer id);
 
-    public Category findById(Integer id);
+    List<Category> findAllCategory();
+
+    void update(Category category);
+
+    void delete(Integer id);
+
+
 }
