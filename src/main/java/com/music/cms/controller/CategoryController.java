@@ -64,16 +64,21 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public String edit(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes)
+    public String edit(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,ModelMap model)
     {
+        System.out.println("hero");
+
         Category category = categoryService.findById(id);
+        System.out.println(category);
         if(category ==null)
         {
             redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.FAILURE));
             return "redirect:/admin/category";
         }
+        model.addAttribute("category",category);
+        model.addAttribute("url",String.format("/admin/category/%s",id));
 
-        return "edit";
+        return "backend/category/form";
 
     }
 

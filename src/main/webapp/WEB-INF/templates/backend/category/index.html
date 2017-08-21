@@ -57,7 +57,11 @@
                         <td th:text="${cat.Name}">Tiger Nixon</td>
                         <td> <span class='pull pull-left bs-label' th:classappend="(${cat.status == true ? 'label-success' : 'label-danger'})" th:text="(${cat.status == true ? 'Active' : 'Inactive'})">Active</span></td>
                         <td>
-                            <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{/category/${cat.id}/edit}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                            <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{|/admin/category/${cat.id}/edit|}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                            <form th:action="@{|/admin/category/${cat.id}|}" method="DELETE" th:object="${category}">
+                                <button class="btn btn-round btn-sm btn-danger btn_glyph" type="submit"><i class="glyphicon glyphicon-trash"></i>Delete</button>
+
+                            </form>
 
 
                         </td>

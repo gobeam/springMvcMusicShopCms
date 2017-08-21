@@ -19,7 +19,30 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category findById(int id) {
-        return null;
+        Session session = null;
+        Transaction tx = null;
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            Category category = (Category) session.load(Category.class,new Integer(id));
+            tx.commit();
+            return category;
+        }catch (RuntimeException e)
+        {
+            try{
+                tx.rollback();
+
+            }catch (RuntimeException rne)
+            {
+            }
+            throw e;
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
     }
 
     @Override
@@ -51,6 +74,9 @@ public class CategoryDaoImpl implements CategoryDao {
             CriteriaQuery<Category> criteriaQuery = builder.createQuery(Category.class);
             criteriaQuery.from(Category.class);
             List<Category> categories = session.createQuery(criteriaQuery).getResultList();
+
+            tx.rollback();
+
             return categories;
 
         }catch (RuntimeException e)
