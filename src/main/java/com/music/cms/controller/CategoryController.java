@@ -25,7 +25,6 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
     public String index(ModelMap model)
     {
         List<Category> categories= categoryService.findAllCategory();
@@ -37,7 +36,6 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
     public String create(ModelMap model)
     {
         model.addAttribute("category",new Category());
@@ -46,7 +44,6 @@ public class CategoryController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
     public String store(@Valid Category category, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes)
     {
         if(result.hasErrors())
@@ -63,14 +60,12 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
     public String edit(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,ModelMap model)
     {
-        System.out.println("hero");
 
         Category category = categoryService.findById(id);
-        System.out.println(category);
-        if(category ==null)
+
+        if(category == null)
         {
             redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.FAILURE));
             return "redirect:/admin/category";
@@ -84,7 +79,6 @@ public class CategoryController {
 
 
     @RequestMapping(method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK)
     public String update(@Valid Category category, RedirectAttributes redirectAttributes)
     {
         categoryService.update(category);
@@ -95,7 +89,6 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
     public String destroy(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes)
     {
         categoryService.delete(id);

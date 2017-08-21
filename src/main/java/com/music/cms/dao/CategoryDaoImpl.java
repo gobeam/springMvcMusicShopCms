@@ -1,12 +1,14 @@
 package com.music.cms.dao;
 
 import com.music.cms.model.Category;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
@@ -26,9 +28,13 @@ public class CategoryDaoImpl implements CategoryDao {
             tx = session.beginTransaction();
             tx.setTimeout(5);
 
-            Category category = (Category) session.load(Category.class,new Integer(id));
+//            Category category = (Category) session.load(Category.class,new Integer(id));
+//            Hibernate.initialize(category);
+
+            org.hibernate.query.Query query= session.createQuery("from Category where id = :id ");
+            query.setParameter("id", id);
             tx.commit();
-            return category;
+            return (Category)query.uniqueResult();
         }catch (RuntimeException e)
         {
             try{
