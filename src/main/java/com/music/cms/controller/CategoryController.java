@@ -26,9 +26,12 @@ public class CategoryController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public String index()
+    public String index(ModelMap model)
     {
-        //List<Category> categories= categoryService.findAllCategory();
+        List<Category> categories= categoryService.findAllCategory();
+
+        model.addAttribute("categories",categories);
+        model.addAttribute("pageTitle","Category Management");
         return "backend/category/index";
     }
 

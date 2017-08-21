@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="wrapper">
+
+    <!-- topnavbar -->
+    <div th:replace="backend/fragment/layout :: topnavbar"></div>
+    <!-- topnavbar end -->
+
+
+    <div class="clearfix">
+
+    </div>
+    <nav>
+        <div th:replace="backend/fragment/layout :: navbar"></div>
+
+
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="content-main">
+
+            <!--banner-->
+            <div class="banner">
+
+                <h2>
+                    <a href="../home/index.html">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                    <span>Dashboard</span>
+                </h2>
+            </div>
+            <!--//banner-->
+            <!--content-->
+            <div class="grid-form">
+                <div class="grid-form1">
+                    <h3>Form Element</h3>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="horizontal-form">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="focusedinput" class="col-sm-2 control-label">Focused Input</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control1" id="focusedinput" placeholder="Default Input">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p class="help-block">Your help text!</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="disabledinput" class="col-sm-2 control-label">Disabled Input</label>
+                                    <div class="col-sm-8">
+                                        <input disabled="" type="text" class="form-control1" id="disabledinput" placeholder="Disabled Input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control1" id="inputPassword" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkbox" class="col-sm-2 control-label">Checkbox</label>
+                                    <div class="col-sm-8">
+                                        <div class="checkbox-inline1"><label><input type="checkbox"> Unchecked</label></div>
+                                        <div class="checkbox-inline1"><label><input type="checkbox" checked=""> Checked</label></div>
+                                        <div class="checkbox-inline1"><label><input type="checkbox" disabled=""> Disabled Unchecked</label></div>
+                                        <div class="checkbox-inline1"><label><input type="checkbox" disabled="" checked=""> Disabled Checked</label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkbox" class="col-sm-2 control-label">Checkbox Inline</label>
+                                    <div class="col-sm-8">
+                                        <div class="checkbox-inline"><label><input type="checkbox"> Unchecked</label></div>
+                                        <div class="checkbox-inline"><label><input type="checkbox" checked=""> Checked</label></div>
+                                        <div class="checkbox-inline"><label><input type="checkbox" disabled=""> Disabled Unchecked</label></div>
+                                        <div class="checkbox-inline"><label><input type="checkbox" disabled="" checked=""> Disabled Checked</label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="selector1" class="col-sm-2 control-label">Dropdown Select</label>
+                                    <div class="col-sm-8"><select name="selector1" id="selector1" class="form-control1">
+                                        <option>Lorem ipsum dolor sit amet.</option>
+                                        <option>Dolore, ab unde modi est!</option>
+                                        <option>Illum, fuga minus sit eaque.</option>
+                                        <option>Consequatur ducimus maiores voluptatum minima.</option>
+                                    </select></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Multiple Select</label>
+                                    <div class="col-sm-8">
+                                        <select multiple="" class="form-control1">
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                            <option>Option 4</option>
+                                            <option>Option 5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtarea1" class="col-sm-2 control-label">Textarea</label>
+                                    <div class="col-sm-8"><textarea name="txtarea1" id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="radio" class="col-sm-2 control-label">Radio</label>
+                                    <div class="col-sm-8">
+                                        <div class="radio block"><label><input type="radio"> Unchecked</label></div>
+                                        <div class="radio block"><label><input type="radio" checked=""> Checked</label></div>
+                                        <div class="radio block"><label><input type="radio" disabled=""> Disabled Unchecked</label></div>
+                                        <div class="radio block"><label><input type="radio" disabled="" checked=""> Disabled Checked</label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="radio" class="col-sm-2 control-label">Radio Inline</label>
+                                    <div class="col-sm-8">
+                                        <div class="radio-inline"><label><input type="radio"> Unchecked</label></div>
+                                        <div class="radio-inline"><label><input type="radio" checked=""> Checked</label></div>
+                                        <div class="radio-inline"><label><input type="radio" disabled=""> Disabled Unchecked</label></div>
+                                        <div class="radio-inline"><label><input type="radio" disabled="" checked=""> Disabled Checked</label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="smallinput" class="col-sm-2 control-label label-input-sm">Small Input</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control1 input-sm" id="smallinput" placeholder="Small Input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mediuminput" class="col-sm-2 control-label">Medium Input</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control1" id="mediuminput" placeholder="Medium Input">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-n">
+                                    <label for="largeinput" class="col-sm-2 control-label label-input-lg">Large Input</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control1 input-lg" id="largeinput" placeholder="Large Input">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <button class="btn-primary btn">Submit</button>
+                                <button class="btn-default btn">Cancel</button>
+                                <button class="btn-inverse btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="copy">
+                <p> &copy; 2016 Minimal. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>
