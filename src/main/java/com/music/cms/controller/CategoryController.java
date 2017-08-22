@@ -71,16 +71,30 @@ public class CategoryController {
             return "redirect:/admin/category";
         }
         model.addAttribute("category",category);
-        model.addAttribute("url",String.format("/admin/category/%s",id));
+        model.addAttribute("method","PUT");
+        model.addAttribute("button","Update");
+        model.addAttribute("pageTitle","Edit Category");
+        model.addAttribute("url",String.format("/admin/category/%s/update",id));
 
         return "backend/category/form";
 
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public String update(@Valid Category category, RedirectAttributes redirectAttributes)
+    @RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
+    public String update(@Valid Category category,@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,BindingResult result)
     {
+        Category categoryCheck = categoryService.findById(id);
+        if(categoryCheck == null)
+        {
+            redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.DANGER));
+            return "redirect:/admin/category";
+        }
+        if(result.hasErrors())
+        {
+            return "backend/category/form";
+        }
+
         categoryService.update(category);
 
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("Category successfully updated!", FlashMessage.Status.SUCCESS));
@@ -88,7 +102,7 @@ public class CategoryController {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes)
     {
         categoryService.delete(id);
