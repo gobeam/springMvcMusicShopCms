@@ -58,6 +58,31 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void update(Category category) {
+        Session session = null;
+        Transaction tx = null;
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            session.update(category);
+            tx.commit();
+
+
+        }catch (RuntimeException rne)
+        {
+            try{
+                tx.rollback();
+            }catch(RuntimeException rbe){
+
+            }
+            throw rne;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
 
     }
 
