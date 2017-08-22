@@ -19,6 +19,6 @@ public class FlashMessage {
     }
 
     public static enum Status {
-        SUCCESS, FAILURE
+        SUCCESS, DANGER
     }
 }

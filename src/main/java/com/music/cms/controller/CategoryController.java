@@ -67,7 +67,7 @@ public class CategoryController {
 
         if(category == null)
         {
-            redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.FAILURE));
+            redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.DANGER));
             return "redirect:/admin/category";
         }
         model.addAttribute("category",category);

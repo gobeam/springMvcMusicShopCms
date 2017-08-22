@@ -42,6 +42,7 @@
             <!--//banner-->
             <!--content-->
             <div class="grid-form">
+                <div th:replace="backend/fragment/layout :: flash"></div>
                 <div class="grid-form1">
                     <h3>Form Element</h3>
                     <div class="tab-content">
@@ -110,8 +111,11 @@
                                 <div class="form-group">
                                     <label for="status" class="col-sm-2 control-label">Status</label>
                                     <div class="col-sm-8">
-                                        <div class="radio block"><label><input th:field="status" type="radio" id="status" th:value="1" th:checked="true"> Active</label></div>
-                                        <div class="radio block"><label><input th:field="status" type="radio" checked="" th:value="0"> Inactive</label></div>
+                                        <div class="radio block"><label>
+
+                                            <input id="status" type="radio" th:field="*{status}" th:value="1" /> Active</label></div>
+                                        <div class="radio block"><label>
+                                            <input type="radio" th:field="*{status}" th:value="0" /> Inactive</label></div>
                                     </div>
                                     <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
                                           class="validation-message"></span>
