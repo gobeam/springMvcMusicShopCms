@@ -2,18 +2,24 @@ package com.music.cms.dao;
 
 import com.music.cms.model.PersistentLogin;
 import com.music.cms.model.Role;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 @Repository("tokenRepositoryDao")
 @Transactional
@@ -84,11 +90,23 @@ public class HibernateTokenRepositoryImpl
 			tx = session.beginTransaction();
 			tx.setTimeout(5);
 
-			PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(username));
-
-			if(null != persistentLogin){
-				session.delete(persistentLogin);
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<PersistentLogin> query = builder.createQuery(PersistentLogin.class);
+			Root<PersistentLogin> root = query.from(PersistentLogin.class);
+			query.select(root).where(builder.equal(root.get("email"), username));
+			Query<PersistentLogin> q=session.createQuery(query);
+			List<PersistentLogin> persistentLogin = q.getResultList();
+			if (!persistentLogin.isEmpty())
+			{
+				session.delete(persistentLogin.get(0));
 			}
+
+
+			//PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(username));
+
+//			if(null != persistentLogin){
+//				session.delete(persistentLogin);
+//			}
 			tx.commit();
 		}catch(RuntimeException e){
 			try{

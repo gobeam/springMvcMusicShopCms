@@ -10,10 +10,10 @@ public class PersistentLogin implements Serializable{
 	@Id
 	private String series;
 
-	@Column(name="EMAIL", unique=true, nullable=false)
+	@Column(name="email", unique=true, nullable=false)
 	private String email;
 	
-	@Column(name="TOKEN", unique=true, nullable=false)
+	@Column(name="token", unique=true, nullable=false)
 	private String token;
 	
 	@Temporal(TemporalType.TIMESTAMP)
