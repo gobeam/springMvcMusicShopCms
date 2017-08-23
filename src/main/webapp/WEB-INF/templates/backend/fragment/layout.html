@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head(page_title)" lang="en">
     <meta charset="UTF-8"/>
@@ -186,7 +186,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">Rackham<i class="caret"></i></span><img src="images/wo.jpg"></a>
+            <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret" ><label sec:authentication="name"></label><i class="caret"></i></span><img src="images/wo.jpg"></a>
             <ul class="dropdown-menu " role="menu">
                 <li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>
                 <li><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox</a></li>
