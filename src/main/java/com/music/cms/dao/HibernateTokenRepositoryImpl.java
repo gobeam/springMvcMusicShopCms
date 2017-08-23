@@ -66,18 +66,47 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		try {
-			Session session = sessionFactory.openSession();
-			PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(seriesId));
-			session.close();
-			return new PersistentRememberMeToken(persistentLogin.getUsername(), persistentLogin.getSeries(),
-					persistentLogin.getToken(), persistentLogin.getLast_used());
+
+		Session session = null;
+		Transaction tx = null;
+
+		try{
+			session = sessionFactory.openSession();
+
+			tx = session.beginTransaction();
+
+			tx.setTimeout(5);
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<PersistentLogin> query = builder.createQuery(PersistentLogin.class);
+			Root<PersistentLogin> root = query.from(PersistentLogin.class);
+			query.select(root).where(builder.equal(root.get("email"), seriesId));
+			Query<PersistentLogin> q=session.createQuery(query);
+			List<PersistentLogin> persistentLogin = q.getResultList();
+			tx.commit();
+			if (!persistentLogin.isEmpty())
+			{
+				return new PersistentRememberMeToken(persistentLogin.get(0).getUsername(), persistentLogin.get(0).getSeries(),
+						persistentLogin.get(0).getToken(), persistentLogin.get(0).getLast_used());
+			}else{
+				return null;
+			}
 
 
+		}catch(RuntimeException e){
+			try{
+				tx.rollback();
+			}catch(RuntimeException rbe){
 
-		} catch (Exception e) {
-			return null;
+			}
+			throw e;
+		}finally{
+
+			if(session!=null){
+				session.close();
+			}
 		}
+
 	}
 
 	@Override
@@ -101,12 +130,6 @@ public class HibernateTokenRepositoryImpl
 				session.delete(persistentLogin.get(0));
 			}
 
-
-			//PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(username));
-
-//			if(null != persistentLogin){
-//				session.delete(persistentLogin);
-//			}
 			tx.commit();
 		}catch(RuntimeException e){
 			try{
