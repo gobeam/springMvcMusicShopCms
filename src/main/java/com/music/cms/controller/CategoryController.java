@@ -39,7 +39,7 @@ public class CategoryController {
     public String create(ModelMap model)
     {
         model.addAttribute("category",new Category());
-        return "create";
+        return "backend/category/form";
     }
 
 
@@ -71,7 +71,6 @@ public class CategoryController {
             return "redirect:/admin/category";
         }
         model.addAttribute("category",category);
-        model.addAttribute("method","PUT");
         model.addAttribute("button","Update");
         model.addAttribute("pageTitle","Edit Category");
         model.addAttribute("url",String.format("/admin/category/%s/update",id));
@@ -82,19 +81,22 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
-    public String update(@Valid Category category,@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,BindingResult result)
-    {
+    public String update(@PathVariable("id") Integer id, @Valid Category category, BindingResult result,ModelMap model,RedirectAttributes redirectAttributes)
+            throws Exception {
+        if(result.hasErrors())
+        {
+            model.addAttribute("button","Update");
+            model.addAttribute("pageTitle","Edit Category");
+            model.addAttribute("url",String.format("/admin/category/%s/update",id));
+            return "backend/category/form";
+        }
+
         Category categoryCheck = categoryService.findById(id);
         if(categoryCheck == null)
         {
             redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.DANGER));
             return "redirect:/admin/category";
         }
-        if(result.hasErrors())
-        {
-            return "backend/category/form";
-        }
-
         categoryService.update(category);
 
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("Category successfully updated!", FlashMessage.Status.SUCCESS));
