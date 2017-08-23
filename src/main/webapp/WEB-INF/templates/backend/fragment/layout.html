@@ -110,8 +110,17 @@
 
 <body>
 
+<div th:fragment="logo" class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <h1> <a class="navbar-brand" th:href="@{|/admin/home|}">Music</a></h1>
+</div>
 <!-- Collect the nav links, forms, and other content for toggling -->
-<div th:fragment="topnavbar" class="drop-men" th:style="|padding: 20px;|">
+<div th:fragment="topnavbar" class="drop-men" th:style="|padding: 15px;|">
     <ul class=" nav_1">
 
         <li class="dropdown at-drop">
@@ -210,7 +219,7 @@
             </li>
 
             <li>
-                <a th:href="@{/admin/category}" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Category</span> </a>
+                <a th:href="@{/admin/category}" class=" hvr-bounce-to-right"><i class="fa fa-tags nav_icon" aria-hidden="true"></i><span class="nav-label">Category</span> </a>
             </li>
 
             <!--<li>-->

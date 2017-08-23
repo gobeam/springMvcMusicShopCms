@@ -13,6 +13,7 @@
 <!--</div>-->
 
 <div id="wrapper">
+    <div th:replace="backend/fragment/layout :: logo"></div>
 
     <!-- topnavbar -->
     <div th:replace="backend/fragment/layout :: topnavbar"></div>
@@ -54,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="name" class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" th:field="*{Name}" class="form-control1" id="name" placeholder="Disabled Input" />
+                                        <input type="text" th:field="*{Name}" class="form-control1" id="name" placeholder="Enter name" />
                                         <span th:if="${#fields.hasErrors('Name')}" th:errors="*{Name}"
                                               class="validation-message"></span>
                                     </div>
@@ -108,9 +109,10 @@
                                             <input id="status" type="radio" th:field="*{status}" th:value="1" /> Active</label></div>
                                         <div class="radio block"><label>
                                             <input type="radio" th:field="*{status}" th:value="0" /> Inactive</label></div>
+                                        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                                              class="validation-message"></span>
                                     </div>
-                                    <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
-                                          class="validation-message"></span>
+
                                 </div>
 
                                 <div class="panel-footer">

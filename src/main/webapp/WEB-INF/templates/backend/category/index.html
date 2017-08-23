@@ -16,7 +16,7 @@
     <!--<div class="pull-left">-->
         <!--<img src="images/wo.jpg">-->
     <!--</div>-->
-
+    <div th:replace="backend/fragment/layout :: logo"></div>
     <!-- topnavbar -->
     <div th:replace="backend/fragment/layout :: topnavbar"></div>
     <!-- topnavbar end -->
@@ -32,6 +32,14 @@
     </nav>
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="content-main">
+
+            <div class="grid-form " th:style="@{|height: 65px|}">
+                <div class="new-btn pull-right">
+
+                    <a class="btn btn-primary" th:href="@{|/admin/category/create|}"><i class="fa fa-plus" style="margin-right:10px;"></i>Add Category</a>
+
+                </div>
+            </div>
 
             <!--banner-->
             <div class="banner">

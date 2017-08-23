@@ -1,14 +1,12 @@
 package com.music.cms.dao;
 
 import com.music.cms.model.Category;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Query;
+import org.hibernate.query.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
@@ -31,7 +29,7 @@ public class CategoryDaoImpl implements CategoryDao {
 //            Category category = (Category) session.load(Category.class,new Integer(id));
 //            Hibernate.initialize(category);
 
-            org.hibernate.query.Query query= session.createQuery("from Category where id = :id ");
+            Query query= session.createQuery("from Category where id = :id ");
             query.setParameter("id", id);
             tx.commit();
             return (Category)query.uniqueResult();
@@ -53,6 +51,31 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void save(Category category) {
+        Session session = null;
+        Transaction tx = null;
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            session.save(category);
+            tx.commit();
+
+        }catch (RuntimeException e)
+        {
+            try{
+                tx.rollback();
+
+            }catch(RuntimeException rne){
+
+        }
+        throw e;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
 
     }
 

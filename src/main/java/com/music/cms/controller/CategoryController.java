@@ -39,17 +39,24 @@ public class CategoryController {
     public String create(ModelMap model)
     {
         model.addAttribute("category",new Category());
+        model.addAttribute("button","Add");
+        model.addAttribute("pageTitle","Add Category");
+        model.addAttribute("url",String.format("/admin/category/store"));
         return "backend/category/form";
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/store",method = RequestMethod.POST)
     public String store(@Valid Category category, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes)
     {
         if(result.hasErrors())
         {
-            return "category";
+            model.addAttribute("button","Add");
+            model.addAttribute("pageTitle","Add Category");
+            model.addAttribute("url",String.format("/admin/category/store"));
+            return "backend/category/form";
         }
+
         categoryService.saveCategory(category);
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("New Category created successfully!", FlashMessage.Status.SUCCESS));
 
