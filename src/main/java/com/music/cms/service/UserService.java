@@ -2,15 +2,22 @@ package com.music.cms.service;
 
 import com.music.cms.model.User;
 
+import java.util.List;
+
 /**
  * Created by alis on 8/3/17.
  */
 public interface UserService {
 
-    public User findUserByEmail(String email);
+    User findUserByEmail(String email);
 
-    public void saveUser(User user);
+    void saveUser(User user);
 
-    public User findById(Integer id);
+    void update(User user);
+
+    User findById(Integer id);
+
+    List<User> getAllUsers();
+
 
 }

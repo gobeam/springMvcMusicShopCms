@@ -40,12 +40,23 @@ public class HibernateTokenRepositoryImpl
 			tx = session.beginTransaction();
 			tx.setTimeout(5);
 
-			PersistentLogin persistentLogin = new PersistentLogin();
-			persistentLogin.setUsername(token.getUsername());
-			persistentLogin.setSeries(token.getSeries());
-			persistentLogin.setToken(token.getTokenValue());
-			persistentLogin.setLast_used(token.getDate());
-			session.persist(persistentLogin);
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<PersistentLogin> query = builder.createQuery(PersistentLogin.class);
+			Root<PersistentLogin> root = query.from(PersistentLogin.class);
+			query.select(root).where(builder.equal(root.get("email"), token.getUsername()));
+			Query<PersistentLogin> q=session.createQuery(query);
+			List<PersistentLogin> persistentLoginCheck = q.getResultList();
+			if (!persistentLoginCheck.isEmpty())
+			{
+				PersistentLogin persistentLogin = new PersistentLogin();
+				persistentLogin.setUsername(token.getUsername());
+				persistentLogin.setSeries(token.getSeries());
+				persistentLogin.setToken(token.getTokenValue());
+				persistentLogin.setLast_used(token.getDate());
+				session.persist(persistentLogin);
+			}
+
+
 
 			tx.commit();
 
@@ -81,7 +92,7 @@ public class HibernateTokenRepositoryImpl
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<PersistentLogin> query = builder.createQuery(PersistentLogin.class);
 			Root<PersistentLogin> root = query.from(PersistentLogin.class);
-			query.select(root).where(builder.equal(root.get("email"), seriesId));
+			query.select(root).where(builder.equal(root.get("series"), seriesId));
 			Query<PersistentLogin> q=session.createQuery(query);
 			List<PersistentLogin> persistentLogin = q.getResultList();
 			tx.commit();
@@ -163,7 +174,7 @@ public class HibernateTokenRepositoryImpl
 			tx.setTimeout(5);
 
 			//PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(seriesId));
-			Query query = session.createQuery("from PersistentLogin where series = :series");
+			Query query = session.createQuery(" from PersistentLogin where series = :series");
 			query.setParameter("series",seriesId);
 			PersistentLogin persistentLoginToken = (PersistentLogin)query.uniqueResult();
 

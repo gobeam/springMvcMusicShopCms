@@ -115,12 +115,31 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.update(user);
-        tx.commit();
-        session.close();
-        logger.info("User updated successfully, Person Details="+user);
+        Session session = null;
+        Transaction tx = null;
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            session.update(user);
+            tx.commit();
+            logger.info("User updated successfully, Person Details="+user);
+        }catch (RuntimeException e)
+        {
+            try{
+                tx.rollback();
+
+            }catch (RuntimeException rne)
+            {
+
+            }
+            throw e;
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
     }
 
     @Override

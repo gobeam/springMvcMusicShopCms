@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="wrapper">
+    <div th:replace="backend/fragment/layout :: logo"></div>
+
+    <!-- topnavbar -->
+    <div th:replace="backend/fragment/layout :: topnavbar"></div>
+    <!-- topnavbar end -->
+
+
+    <div class="clearfix">
+
+    </div>
+    <nav>
+        <div th:replace="backend/fragment/layout :: navbar"></div>
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1" style="background: #f3f3f4;">
+        <div class="content-main">
+
+            <!--banner-->
+            <div class="banner">
+
+                <h2>
+                    <a th:href="@{|/admin/home|}">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                    <span th:text="${pageTitle}">Categories</span>
+                </h2>
+            </div>
+            <!--//banner-->
+            <!--content-->
+            <div class="grid-form">
+                <div th:replace="backend/fragment/layout :: flash"></div>
+                <div class="grid-form1">
+                    <h3 th:text="${pageTitle}">Form Element</h3>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="horizontal-form">
+                            <form class="form-horizontal" th:action="${url}" th:object="${user}" method="post">
+
+                                <!--<input type="hidden" name="_method" th:value="${method}">-->
+
+                                <div class="form-group">
+                                    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{first_name}" class="form-control1" id="first_name" placeholder="Enter first name" />
+                                        <span th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"
+                                              class="validation-message"></span>
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{last_name}" class="form-control1" id="last_name" placeholder="Enter last name" />
+                                        <span th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{email}" class="form-control1" id="email" placeholder="Enter email" />
+                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Country" class="col-sm-2 control-label">Country</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{Country}" class="form-control1" id="Country" placeholder="Enter Country" />
+                                        <span th:if="${#fields.hasErrors('Country')}" th:errors="*{Country}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="city" class="col-sm-2 control-label">City</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{city}" class="form-control1" id="city" placeholder="Enter city" />
+                                        <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address" class="col-sm-2 control-label">Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{address}" class="form-control1" id="address" placeholder="Enter address" />
+                                        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="zip" class="col-sm-2 control-label">Zip</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{zip}" class="form-control1" id="zip" placeholder="Enter zip" />
+                                        <span th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-2 control-label">Phone</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{phone}" class="form-control1" id="phone" placeholder="Enter phone" />
+                                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!--<div class="form-group">-->
+                                <!--<label for="inputPassword" class="col-sm-2 control-label">Password</label>-->
+                                <!--<div class="col-sm-8">-->
+                                <!--<input type="password" class="form-control1" id="inputPassword" placeholder="Password">-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label for="checkbox" class="col-sm-2 control-label">Checkbox</label>-->
+                                <!--<div class="col-sm-8">-->
+                                <!--<div class="checkbox-inline1"><label><input type="checkbox"> Unchecked</label></div>-->
+                                <!--<div class="checkbox-inline1"><label><input type="checkbox" checked=""> Checked</label></div>-->
+                                <!--<div class="checkbox-inline1"><label><input type="checkbox" disabled=""> Disabled Unchecked</label></div>-->
+                                <!--<div class="checkbox-inline1"><label><input type="checkbox" disabled="" checked=""> Disabled Checked</label></div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="form-group">-->
+                                <!--<label for="selector1" class="col-sm-2 control-label">Dropdown Select</label>-->
+                                <!--<div class="col-sm-8"><select name="selector1" id="selector1" class="form-control1">-->
+                                <!--<option>Lorem ipsum dolor sit amet.</option>-->
+                                <!--<option>Dolore, ab unde modi est!</option>-->
+                                <!--<option>Illum, fuga minus sit eaque.</option>-->
+                                <!--<option>Consequatur ducimus maiores voluptatum minima.</option>-->
+                                <!--</select></div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-2 control-label">Multiple Select</label>-->
+                                <!--<div class="col-sm-8">-->
+                                <!--<select multiple="" class="form-control1">-->
+                                <!--<option>Option 1</option>-->
+                                <!--<option>Option 2</option>-->
+                                <!--<option>Option 3</option>-->
+                                <!--<option>Option 4</option>-->
+                                <!--<option>Option 5</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label for="txtarea1" class="col-sm-2 control-label">Textarea</label>-->
+                                <!--<div class="col-sm-8"><textarea name="txtarea1" id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label for="status" class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-8">
+                                        <div class="radio block"><label>
+
+                                            <input id="status" type="radio" th:field="*{status}" th:value="1" /> Active</label></div>
+                                        <div class="radio block"><label>
+                                            <input type="radio" th:field="*{status}" th:value="0" /> Inactive</label></div>
+                                        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                                              class="validation-message"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input class="btn-primary btn" type="submit" th:value="${button}">
+                                            <a th:href="@{/admin/user}" class="btn-default btn">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div class="copy">
+        <p> &copy; 2016 Minimal. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>
