@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="wrapper">
+    <div th:replace="backend/fragment/layout :: logo"></div>
+
+    <!-- topnavbar -->
+    <div th:replace="backend/fragment/layout :: topnavbar"></div>
+    <!-- topnavbar end -->
+
+
+    <div class="clearfix">
+
+    </div>
+    <nav>
+        <div th:replace="backend/fragment/layout :: navbar"></div>
+
+
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1" style="background: #f3f3f4;">
+        <div class="content-main">
+
+            <!--banner-->
+            <div class="banner">
+
+                <h2>
+                    <a th:href="@{|/admin/home|}">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                    <span>Categories</span>
+                </h2>
+            </div>
+            <!--//banner-->
+            <!--content-->
+            <div class="grid-form">
+                <div th:replace="backend/fragment/layout :: flash"></div>
+                <div class="grid-form1">
+                    <h3 th:text="${pageTitle}">Form Element</h3>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="horizontal-form">
+                            <form class="form-horizontal" th:action="${url}" th:object="${role}" method="post">
+
+                                <!--<input type="hidden" name="_method" th:value="${method}">-->
+
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">Role Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{role}" class="form-control1" id="name" placeholder="Enter Role name" />
+                                        <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input class="btn-primary btn" type="submit" th:value="${button}">
+                                            <a th:href="@{/admin/role}" class="btn-default btn">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div class="copy">
+        <p> &copy; 2016 Minimal. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>
