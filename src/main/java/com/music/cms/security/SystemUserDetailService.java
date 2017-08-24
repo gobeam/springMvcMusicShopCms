@@ -29,8 +29,8 @@ public class SystemUserDetailService implements UserDetailsService {
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.findUserByEmail(email);
-        System.out.println("hellyeah");
-        System.out.println(user.getRoles().toString());
+        //System.out.println("hellyeah");
+        //System.out.println(user.getRoles().toString());
 
         if(user==null){
             throw new UsernameNotFoundException("Username not found");

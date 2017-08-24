@@ -32,6 +32,7 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
+		System.out.println("createNewToken");
 		Session session = null;
 		Transaction tx = null;
 		try{
@@ -66,7 +67,7 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-
+		System.out.println("getTokenForSeries");
 		Session session = null;
 		Transaction tx = null;
 
@@ -86,6 +87,7 @@ public class HibernateTokenRepositoryImpl
 			tx.commit();
 			if (!persistentLogin.isEmpty())
 			{
+				System.out.println("noempty");
 				return new PersistentRememberMeToken(persistentLogin.get(0).getUsername(), persistentLogin.get(0).getSeries(),
 						persistentLogin.get(0).getToken(), persistentLogin.get(0).getLast_used());
 			}else{
@@ -111,6 +113,7 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public void removeUserTokens(String username) {
+		System.out.println("removeUserTokens");
 		Session session = null;
 		Transaction tx = null;
 
@@ -150,6 +153,7 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public void updateToken(String seriesId, String tokenValue, Date lastUsed) {
+		System.out.println("updateToken");
 		Session session = null;
 		Transaction tx = null;
 
@@ -158,11 +162,15 @@ public class HibernateTokenRepositoryImpl
 			tx = session.beginTransaction();
 			tx.setTimeout(5);
 
-			PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(seriesId));
-			if (null != persistentLogin) {
-				persistentLogin.setToken(tokenValue);
-				persistentLogin.setLast_used(lastUsed);
-				session.update(persistentLogin);
+			//PersistentLogin persistentLogin = (PersistentLogin) session.load(PersistentLogin.class, new String(seriesId));
+			Query query = session.createQuery("from PersistentLogin where series = :series");
+			query.setParameter("series",seriesId);
+			PersistentLogin persistentLoginToken = (PersistentLogin)query.uniqueResult();
+
+			if (null != persistentLoginToken) {
+				persistentLoginToken.setToken(tokenValue);
+				persistentLoginToken.setLast_used(lastUsed);
+				session.update(persistentLoginToken);
 			}
 			tx.commit();
 
