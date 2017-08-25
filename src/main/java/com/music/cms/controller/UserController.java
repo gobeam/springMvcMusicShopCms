@@ -1,7 +1,9 @@
 package com.music.cms.controller;
 
 import com.music.cms.FlashMessage;
+import com.music.cms.model.Role;
 import com.music.cms.model.User;
+import com.music.cms.service.RoleService;
 import com.music.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model)
@@ -70,10 +75,16 @@ public class UserController {
             return  "redirect:/admin/user";
 
         }
+        System.out.println("heyhrl");
+        System.out.println(user);
+        System.out.println(user.getRoles());
+        List<Role> roles = roleService.getallRole();
+
         model.addAttribute("user",user);
         model.addAttribute("button","Update");
         model.addAttribute("pageTitle","Edit User");
         model.addAttribute("url",String.format("/admin/user/%s/update",id));
+        model.addAttribute("roles",roles);
 
         return "backend/user/form";
 

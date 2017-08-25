@@ -60,7 +60,7 @@ public class User {
     private Boolean status;
 
     @Transient
-   //@NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Integer role_id;
 
    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

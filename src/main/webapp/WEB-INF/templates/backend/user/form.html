@@ -144,15 +144,13 @@
                                 <!--</div>-->
                                 <!--</div>-->
 
-                                <!--<div class="form-group">-->
-                                <!--<label for="selector1" class="col-sm-2 control-label">Dropdown Select</label>-->
-                                <!--<div class="col-sm-8"><select name="selector1" id="selector1" class="form-control1">-->
-                                <!--<option>Lorem ipsum dolor sit amet.</option>-->
-                                <!--<option>Dolore, ab unde modi est!</option>-->
-                                <!--<option>Illum, fuga minus sit eaque.</option>-->
-                                <!--<option>Consequatur ducimus maiores voluptatum minima.</option>-->
-                                <!--</select></div>-->
-                                <!--</div>-->
+                                <div class="form-group">
+                                    <label for="selector1" class="col-sm-2 control-label">Role</label>
+                                    <div class="col-sm-8"><select th:field="*{role_id}" id="selector1" class="form-control1">
+                                        <option value="" disabled="disabled">Category Color</option>
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"  >ADMIN</option>
+                                    </select></div>
+                                </div>
                                 <!--<div class="form-group">-->
                                 <!--<label class="col-sm-2 control-label">Multiple Select</label>-->
                                 <!--<div class="col-sm-8">-->

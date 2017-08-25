@@ -78,6 +78,12 @@ public class BackendHomeController {
         return "backend/login/register";
     }
 
+    @RequestMapping(value = "/access-denied")
+    public  String accessDenied()
+    {
+        return "backend/fragment/access-denied";
+    }
+
 
     /**
      * This method handles login GET requests.
