@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,10 +49,13 @@ public class UserController {
     {
         if(result.hasErrors())
         {
+            model.addAttribute("button","Add");
+            model.addAttribute("pageTitle","Add User");
+            model.addAttribute("url",String.format("/admin/user/store"));
             return "backend/user/form";
         }
         userService.saveUser(user);
-        redirectAttributes.addFlashAttribute("flash",new FlashMessage("User added successfully!",FlashMessage.Status.SUCCESS));
+        redirectAttributes.addFlashAttribute("flash",new FlashMessage("User updated successfully!",FlashMessage.Status.SUCCESS));
         return "redirect:/admin/user";
 
     }
@@ -77,7 +81,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Integer id,@Valid User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
+    public String update(@PathVariable("id") Integer id, @Validated(User.GroupValidationUpdate.class) User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
     {
         if(result.hasErrors())
         {
@@ -94,8 +98,18 @@ public class UserController {
             return  "redirect:/admin/user";
 
         }
-        userService.update(user);
-        redirectAttributes.addFlashAttribute("flash",new FlashMessage("User successfully updated!",FlashMessage.Status.DANGER));
+
+        User userExist = userService.findUserByEmailForUpdate(user);
+        if (userExist != null) {
+            result
+                    .rejectValue("email", "error.user",
+                            "There is already a user registered with the email provided");
+        }else{
+            userService.updatePartial(user);
+            redirectAttributes.addFlashAttribute("flash",new FlashMessage("User successfully updated!",FlashMessage.Status.SUCCESS));
+        }
+
+
         return  "redirect:/admin/user";
 
     }

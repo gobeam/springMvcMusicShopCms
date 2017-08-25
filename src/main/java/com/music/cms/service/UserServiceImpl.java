@@ -39,6 +39,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updatePartial(User user) {
+        userRepository.updatePartial(user);
+    }
+
+    @Override
+    public User findUserByEmailForUpdate(User user) {
+        return userRepository.findUserByEmailForUpdate(user);
+    }
+
+    @Override
     public User findById(Integer id) {
        return userRepository.findById(id);
     }

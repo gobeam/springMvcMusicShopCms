@@ -21,4 +21,8 @@ public interface UserDao {
 
     List<User> findAllUsers();
 
+    void updatePartial(User user);
+
+    User findUserByEmailForUpdate(User user);
+
 }

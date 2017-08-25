@@ -15,6 +15,10 @@ public interface UserService {
 
     void update(User user);
 
+    void updatePartial(User user);
+
+    User findUserByEmailForUpdate(User user);
+
     User findById(Integer id);
 
     List<User> getAllUsers();

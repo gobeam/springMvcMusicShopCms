@@ -145,8 +145,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deleteById(int id) {
         Session session = sessionFactory.openSession();
-        User user = (User) session.load(User.class, new Integer(id));
         Transaction tx = session.beginTransaction();
+        User user = (User) session.load(User.class, new Integer(id));
         if(null != user){
             session.delete(user);
         }
@@ -178,5 +178,91 @@ public class UserDaoImpl implements UserDao {
         session.close();
 
         return users;
+    }
+
+    @Override
+    public void updatePartial(User user) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            User userData = (User) session.load(User.class,user.getId());
+            if(userData != null)
+            {
+                userData.setFirst_name(user.getFirst_name());
+                userData.setLast_name(user.getLast_name());
+                userData.setAddress(user.getAddress());
+                userData.setCity(user.getCity());
+                userData.setCountry(user.getCountry());
+                userData.setEmail(user.getEmail());
+                userData.setPhone(user.getPhone());
+                userData.setStatus(user.getStatus());
+                userData.setZip(user.getZip());
+                if(user.getPassword() != null)
+                {
+                    userData.setPassword(user.getPassword());
+                }
+                session.update(userData);
+
+            }
+
+            tx.commit();
+
+        }catch (RuntimeException e)
+        {
+            try{
+                tx.rollback();
+
+
+            }catch (RuntimeException rne)
+            {
+
+            }
+            throw e;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+
+        }
+
+    }
+
+    @Override
+    public User findUserByEmailForUpdate(User user) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            org.hibernate.query.Query query = session.createQuery("from User where id != :id and email = :email ");
+            query.setParameter("id", user.getId());
+            query.setParameter("email", user.getEmail());
+            tx.commit();
+            return (User)query.uniqueResult();
+
+
+        }catch(RuntimeException e){
+            try{
+                tx.rollback();
+            }catch(RuntimeException rbe){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
+        }
     }
 }

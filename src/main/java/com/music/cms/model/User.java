@@ -14,25 +14,31 @@ import java.util.Set;
  */
 @Entity
 public class User {
+
+    public interface GroupValidationAdd {};
+
+    public interface GroupValidationUpdate {};
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Email(message = "Please provide valid email!")
-    @NotEmpty(message = "Email cannot be empty!")
+    @Email(message = "Please provide valid email!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotEmpty(message = "Email cannot be empty!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String email;
 
-    @Size(min = 6,message = "Password cannot be less than 6 character!")
-    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 6,message = "Password cannot be less than 6 character!",groups = GroupValidationAdd.class)
+    @NotBlank(message = "Password cannot be blank",groups = GroupValidationAdd.class)
     private String password;
 
-    @NotBlank(message = "First name cannot be blank!")
+    @NotBlank(message = "First name cannot be blank!",groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String first_name;
 
-    @NotBlank(message = "Last name cannot be blank")
+    @NotBlank(message = "Last name cannot be blank",groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String last_name;
 
-    @NotBlank(message = "Address cannot be blank!")
+    @NotBlank(message = "Address cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String address;
 
     @Column(nullable = true)
@@ -41,20 +47,20 @@ public class User {
     @Column(nullable = true)
     private String phone;
 
-    @NotBlank(message = "Zip cannot be blank!")
+    @NotBlank(message = "Zip cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String zip;
 
-    @NotBlank(message = "Country cannot be blank!")
+    @NotBlank(message = "Country cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String country;
 
-    @NotBlank(message = "City cannot be blank!")
+    @NotBlank(message = "City cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private String city;
 
-    @NotNull(message = "Status must be specified!")
+    @NotNull(message = "Status must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Boolean status;
 
     @Transient
-//    @NotNull(message = "Role must be specified!")
+   //@NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Integer role_id;
 
    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
