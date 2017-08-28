@@ -35,6 +35,8 @@
                 <h2>
                     <a th:href="@{|/admin/home|}">Home</a>
                     <i class="fa fa-angle-right"></i>
+                    <a th:href="@{|/admin/user|}">Users</a>
+                    <i class="fa fa-angle-right"></i>
                     <span th:text="${pageTitle}">Categories</span>
                 </h2>
             </div>
@@ -146,9 +148,9 @@
 
                                 <div class="form-group">
                                     <label for="selector1" class="col-sm-2 control-label">Role</label>
-                                    <div class="col-sm-8"><select th:field="*{role_id}" id="selector1" class="form-control1">
+                                    <div class="col-sm-8"><select name="role_id" id="selector1" class="form-control1">
                                         <option value="" disabled="disabled">Category Color</option>
-                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"  >ADMIN</option>
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}" th:selected="${(user.getRoles()[0].getRole()) == (role.role)}"  >ADMIN</option>
                                     </select></div>
                                 </div>
                                 <!--<div class="form-group">-->

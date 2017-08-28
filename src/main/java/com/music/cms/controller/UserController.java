@@ -75,9 +75,7 @@ public class UserController {
             return  "redirect:/admin/user";
 
         }
-        System.out.println("heyhrl");
-        System.out.println(user);
-        System.out.println(user.getRoles());
+
         List<Role> roles = roleService.getallRole();
 
         model.addAttribute("user",user);

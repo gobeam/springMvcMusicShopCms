@@ -35,6 +35,10 @@ public class UserDaoImpl implements UserDao {
     public User findById(int id) {
         Session session = sessionFactory.openSession();
         User user = (User) session.load(User.class, new Integer(id));
+        if (user != null)
+        {
+            Hibernate.initialize(user.getRoles());
+        }
         logger.info("User loaded successfully, User details="+user);
         session.close();
         return user;
@@ -75,17 +79,13 @@ public class UserDaoImpl implements UserDao {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             tx.setTimeout(5);
-            System.out.println("addedsuccess");
             session.persist(user);
 
             //this is for test purpose only
             Role userRole = roleRepository.findById(1);
-            System.out.println(userRole);
-            System.out.println(userRole.getRole());
 
             if(userRole != null)
             {
-                System.out.println(userRole);
                 if(user != null)
                 {
                     user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
