@@ -124,17 +124,10 @@ public class UserDaoImpl implements UserDao {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             tx.setTimeout(5);
+            Role userRol = roleRepository.findById(user.getRole_id());
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
             session.update(user);
-
-            if(user.getRole_id() != null) {
-                Role userRol = roleRepository.findById(user.getRole_id());
-                if (userRol != null) {
-                    if (user != null) {
-                        user.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
-                    }
-                }
-            }
-                    tx.commit();
+            tx.commit();
             logger.info("User updated successfully, Person Details="+user);
         }catch (RuntimeException e)
         {
@@ -218,6 +211,19 @@ public class UserDaoImpl implements UserDao {
                 {
                     userData.setPassword(user.getPassword());
                 }
+
+                Role userRol = roleRepository.findById(user.getRole_id());
+                if(userData != null)
+                {
+
+                    for(Role role : userData.getRoles())
+                    {
+                        userData.getRoles().remove(role);
+                    }
+
+
+                }
+                userData.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
                 session.update(userData);
 
             }
