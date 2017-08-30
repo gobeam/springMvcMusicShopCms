@@ -1,5 +1,7 @@
 package com.music.cms.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,6 +15,7 @@ import java.util.Set;
  * Created by alis on 8/3/17.
  */
 @Entity
+@Audited
 public class User {
 
     public interface GroupValidationAdd {};
@@ -65,6 +68,7 @@ public class User {
     private Integer role_id;
 
    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+   @NotAudited
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
