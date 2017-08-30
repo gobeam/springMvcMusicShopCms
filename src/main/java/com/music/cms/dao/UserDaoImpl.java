@@ -213,17 +213,8 @@ public class UserDaoImpl implements UserDao {
                 }
 
                 Role userRol = roleRepository.findById(user.getRole_id());
-                System.out.println("forwarimn");
-                System.out.println(userData.getRoles()  + "first one");
-                System.out.println(userRol + "Seconf one");
-                if(userData.getRoles().toArray()[0] != userRol.getRole().toCharArray())
-                {
-                    for(Role role : userData.getRoles())
-                    {
-                        userData.getRoles().remove(role);
-                    }
-                    userData.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
-                }
+
+                userData.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
 
                 session.update(userData);
 
