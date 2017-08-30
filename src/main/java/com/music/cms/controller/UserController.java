@@ -40,23 +40,32 @@ public class UserController {
     @RequestMapping(value = "/create",method = RequestMethod.GET)
     public String create(ModelMap model)
     {
+        List<Role> roles = roleService.getallRole();
+
+        System.out.println(roles);
+
         model.addAttribute("user",new User());
         model.addAttribute("button","Add");
         model.addAttribute("pageTitle","Add User");
         model.addAttribute("url",String.format("/admin/user/store"));
+        model.addAttribute("store",true);
+        model.addAttribute("roles",roles);
 
         return "backend/user/form";
     }
 
 
     @RequestMapping(value = "/store",method = RequestMethod.POST)
-    public String store(@Valid User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
+    public String store(@Validated(User.GroupValidationAdd.class) User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
     {
+//        System.out.println("damna");
+//        System.out.println(user.getRole_id());
         if(result.hasErrors())
         {
             model.addAttribute("button","Add");
             model.addAttribute("pageTitle","Add User");
             model.addAttribute("url",String.format("/admin/user/store"));
+            model.addAttribute("store",true);
             return "backend/user/form";
         }
         userService.saveUser(user);
@@ -83,6 +92,7 @@ public class UserController {
         model.addAttribute("pageTitle","Edit User");
         model.addAttribute("url",String.format("/admin/user/%s/update",id));
         model.addAttribute("roles",roles);
+        model.addAttribute("store",false);
 
         return "backend/user/form";
 
@@ -97,6 +107,7 @@ public class UserController {
             model.addAttribute("button","Update");
             model.addAttribute("pageTitle","Edit User");
             model.addAttribute("url",String.format("/admin/user/%s/update",id));
+            model.addAttribute("store",false);
             return "backend/user/form";
         }
 

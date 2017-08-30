@@ -30,6 +30,7 @@ public class User {
 
     @Size(min = 6,message = "Password cannot be less than 6 character!",groups = GroupValidationAdd.class)
     @NotBlank(message = "Password cannot be blank",groups = GroupValidationAdd.class)
+    @NotNull(message = "Password cannot be blank",groups = GroupValidationAdd.class)
     private String password;
 
     @NotBlank(message = "First name cannot be blank!",groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
