@@ -82,17 +82,20 @@ public class UserDaoImpl implements UserDao {
             session.persist(user);
 
             //this is for test purpose only
-            Role userRole = roleRepository.findById(1);
-
-            if(userRole != null)
+            if(user.getRole_id() != null)
             {
-                if(user != null)
-                {
-                    user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-                }
+                Role userRole = roleRepository.findById(user.getRole_id());
 
+                if(userRole != null)
+                {
+                    if(user != null)
+                    {
+                        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+                    }
+
+                }
             }
-            System.out.println((user));
+
 
             tx.commit();
             logger.info("User saved successfully, Person Details="+user);
@@ -122,7 +125,16 @@ public class UserDaoImpl implements UserDao {
             tx = session.beginTransaction();
             tx.setTimeout(5);
             session.update(user);
-            tx.commit();
+
+            if(user.getRole_id() != null) {
+                Role userRol = roleRepository.findById(user.getRole_id());
+                if (userRol != null) {
+                    if (user != null) {
+                        user.setRoles(new HashSet<Role>(Arrays.asList(userRol)));
+                    }
+                }
+            }
+                    tx.commit();
             logger.info("User updated successfully, Person Details="+user);
         }catch (RuntimeException e)
         {

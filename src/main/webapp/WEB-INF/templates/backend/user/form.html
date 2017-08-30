@@ -158,7 +158,7 @@
                                     <label for="selector1" class="col-sm-2 control-label">Role</label>
                                     <div class="col-sm-8"><select name="role_id" id="selector1" class="form-control1">
                                         <option th:value="${ null }" >Select Role</option>
-                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}" th:if="${(user.getRoles() != null)}" th:selected="${(user.getRoles()[0].getRole()) == (role.role)}"  >ADMIN</option>
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"  th:selected="${(store != true)} ? ${(user.getRoles()[0].getRole()) == (role.role)} : false "  >ADMIN</option>
                                     </select>
                                         <span th:if="${#fields.hasErrors('role_id')}" th:errors="*{role_id}"
                                               class="validation-message"></span>
