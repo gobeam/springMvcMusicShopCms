@@ -1,26 +1,22 @@
 package com.music.cms.controller;
 
 import com.music.cms.FlashMessage;
-import com.music.cms.dao.RoleDao;
-import com.music.cms.model.Role;
 import com.music.cms.model.User;
 import com.music.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @Controller
 public class BackendHomeController {
@@ -37,6 +33,14 @@ public class BackendHomeController {
     @RequestMapping(value = "/admin/home",method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("title", "Spring MVC with Thymeleaf");
+
+
+
+
+
+
+
+
         return "backend/home/index";
     }
 
@@ -55,7 +59,7 @@ public class BackendHomeController {
     }
 
     @RequestMapping(value = "/registration",method = RequestMethod.POST)
-    public String registration(@Valid User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception {
+    public String registration(@Validated(User.GroupValidationRegister.class) User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception {
 
         if (result.hasErrors()) {
             System.out.println(result);

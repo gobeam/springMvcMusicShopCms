@@ -16,6 +16,7 @@
 <div class="login">
     <h1><a href="#">Minimal </a></h1>
     <div class="login-bottom">
+        <div th:replace="backend/fragment/layout :: flash"></div>
         <form autocomplete="off" th:action="@{/registration}"
               th:object="${user}" method="post" class="form-horizontal"
               role="form">

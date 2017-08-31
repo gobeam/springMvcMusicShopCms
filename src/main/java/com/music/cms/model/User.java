@@ -22,27 +22,29 @@ public class User {
 
     public interface GroupValidationUpdate {};
 
+    public interface GroupValidationRegister {};
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Email(message = "Please provide valid email!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
-    @NotEmpty(message = "Email cannot be empty!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @Email(message = "Please provide valid email!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
+    @NotEmpty(message = "Email cannot be empty!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String email;
 
-    @Size(min = 6,message = "Password cannot be less than 6 character!",groups = GroupValidationAdd.class)
-    @NotBlank(message = "Password cannot be blank",groups = GroupValidationAdd.class)
-    @NotNull(message = "Password cannot be blank",groups = GroupValidationAdd.class)
+    @Size(min = 6,message = "Password cannot be less than 6 character!",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
+    @NotBlank(message = "Password cannot be blank",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
+    @NotNull(message = "Password cannot be blank",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
     private String password;
 
-    @NotBlank(message = "First name cannot be blank!",groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "First name cannot be blank!",groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String first_name;
 
-    @NotBlank(message = "Last name cannot be blank",groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "Last name cannot be blank",groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String last_name;
 
-    @NotBlank(message = "Address cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "Address cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String address;
 
     @Column(nullable = true)
@@ -51,13 +53,13 @@ public class User {
     @Column(nullable = true)
     private String phone;
 
-    @NotBlank(message = "Zip cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "Zip cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String zip;
 
-    @NotBlank(message = "Country cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "Country cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String country;
 
-    @NotBlank(message = "City cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
+    @NotBlank(message = "City cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String city;
 
     @NotNull(message = "Status must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
