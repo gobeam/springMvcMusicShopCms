@@ -67,8 +67,8 @@ public class User {
     @NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Integer role_id;
 
-   // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-   @NotAudited
+    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
