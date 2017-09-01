@@ -43,24 +43,37 @@ public class UserDaoImpl implements UserDao {
         User user = (User) session.load(User.class, new Integer(id));
 
 
-        AuditReader auditReader = AuditReaderFactory.get(session);
+//        AuditReader auditReader = AuditReaderFactory.get(session);
+//
+//
+//        List<Number> revisions = auditReader.getRevisions(User.class, id);
+//
+//        List<EntityWithRevision<User>> userRevisionsList = new ArrayList<>();
+//        for (Number revision : revisions) {
+//            User userRevision = auditReader.find(User.class, id, revision);
+//            Date revisionDate = auditReader.getRevisionDate(revision);
+//            String email = auditReader.
+//
+//            userRevisionsList.add(new EntityWithRevision(new RevisionsEntity(revision.longValue(), revisionDate), userRevision));
+//        }
 
 
-        List<Number> revisions = auditReader.getRevisions(User.class, id);
 
+//        System.out.println("This is audit report");
+//        System.out.println(userRevisionsList);
+
+        AuditReader reader = AuditReaderFactory.get(session);
+        List<Number> revlist = reader.getRevisions(User.class, id);
         List<EntityWithRevision<User>> userRevisionsList = new ArrayList<>();
-        for (Number revision : revisions) {
-            User userRevision = auditReader.find(User.class, id, revision);
-            Date revisionDate = auditReader.getRevisionDate(revision);
-            String email = auditReader.
-
-            userRevisionsList.add(new EntityWithRevision(new RevisionsEntity(revision.longValue(), revisionDate), userRevision));
+        System.out.println("test purpose");
+        for (Number rev : revlist)
+        {
+            //reader.findRevision(User.class, rev);
+            System.out.println(reader.findRevision(User.class, rev));
         }
 
-
-
-        System.out.println("This is audit report");
-        System.out.println(userRevisionsList);
+        System.out.println(revlist);
+        System.out.println("test purpose");
 
 
 

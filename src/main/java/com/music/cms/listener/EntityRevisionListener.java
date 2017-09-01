@@ -11,18 +11,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class EntityRevisionListener implements RevisionListener {
 
+
     @Override
     public void newRevision(Object o) {
         System.out.println("New revision is created: " + o);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null)
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null)
         {
-            User user = (User)authentication.getPrincipal();
-            String email = user.getEmail();
+            String name = auth.getName();
 
             RevisionsEntity exampleRevEntity = (RevisionsEntity) o;
-            exampleRevEntity.setUsername(email);
+            exampleRevEntity.setUsername(name);
         }
 
     }
