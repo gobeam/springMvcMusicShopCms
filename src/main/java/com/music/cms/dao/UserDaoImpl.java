@@ -52,6 +52,7 @@ public class UserDaoImpl implements UserDao {
         for (Number revision : revisions) {
             User userRevision = auditReader.find(User.class, id, revision);
             Date revisionDate = auditReader.getRevisionDate(revision);
+            String email = auditReader.
 
             userRevisionsList.add(new EntityWithRevision(new RevisionsEntity(revision.longValue(), revisionDate), userRevision));
         }
@@ -124,6 +125,18 @@ public class UserDaoImpl implements UserDao {
                     }
 
                 }
+            }else{
+                Role userRole = roleRepository.findById(1);
+
+                if(userRole != null)
+                {
+                    if(user != null)
+                    {
+                        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+                    }
+
+                }
+
             }
 
 

@@ -22,9 +22,20 @@ public class RevisionsEntity {
     @RevisionTimestamp
     private Date revisionDate;
 
-    public RevisionsEntity(Long revisionId, Date revisionDate) {
+    private String username;
+
+    public RevisionsEntity(Long revisionId, Date revisionDate,String username) {
         this.revisionId = revisionId;
         this.revisionDate = revisionDate;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public RevisionsEntity() { }
