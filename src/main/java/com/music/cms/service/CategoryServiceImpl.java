@@ -4,7 +4,9 @@ import com.music.cms.dao.CategoryDao;
 import com.music.cms.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,6 +17,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void saveCategory(Category category) {
+
+        try {
+            if(category.getFile() != null)
+            {
+                MultipartFile file = category.getFile();
+                category.setImage(file.getBytes());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         categoryDao.save(category);
 
     }

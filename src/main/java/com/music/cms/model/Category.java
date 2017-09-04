@@ -1,11 +1,10 @@
 package com.music.cms.model;
 
+import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,6 +18,29 @@ public class Category {
 
     @NotNull(message = "At least one status must be selected!")
     private Boolean status;
+
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(name="image", nullable=true)
+    private byte[] image;
+
+    @Transient
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public Boolean getStatus() {
         return status;

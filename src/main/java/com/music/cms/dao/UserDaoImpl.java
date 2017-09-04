@@ -1,13 +1,10 @@
 package com.music.cms.dao;
 
-import com.music.cms.model.EntityWithRevision;
-import com.music.cms.model.RevisionsEntity;
 import com.music.cms.model.Role;
 import com.music.cms.model.User;
 import org.hibernate.*;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.query.AuditQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,40 +40,11 @@ public class UserDaoImpl implements UserDao {
         User user = (User) session.load(User.class, new Integer(id));
 
 
-//        AuditReader auditReader = AuditReaderFactory.get(session);
-//
-//
-//        List<Number> revisions = auditReader.getRevisions(User.class, id);
-//
-//        List<EntityWithRevision<User>> userRevisionsList = new ArrayList<>();
-//        for (Number revision : revisions) {
-//            User userRevision = auditReader.find(User.class, id, revision);
-//            Date revisionDate = auditReader.getRevisionDate(revision);
-//            String email = auditReader.
-//
-//            userRevisionsList.add(new EntityWithRevision(new RevisionsEntity(revision.longValue(), revisionDate), userRevision));
-//        }
+        //getting revision data
+        AuditReader auditReader = AuditReaderFactory.get(session);
 
-
-
-//        System.out.println("This is audit report");
-//        System.out.println(userRevisionsList);
-
-        AuditReader reader = AuditReaderFactory.get(session);
-        List<Number> revlist = reader.getRevisions(User.class, id);
-        List<EntityWithRevision<User>> userRevisionsList = new ArrayList<>();
-        System.out.println("test purpose");
-        for (Number rev : revlist)
-        {
-            //reader.findRevision(User.class, rev);
-            System.out.println(reader.findRevision(User.class, rev));
-        }
-
-        System.out.println(revlist);
-        System.out.println("test purpose");
-
-
-
+        User city_rev1 = auditReader.find(User.class, new Integer(id), 1L);
+       // auditReader.getUs
 
 
         if (user != null)
