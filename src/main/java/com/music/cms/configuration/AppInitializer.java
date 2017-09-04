@@ -34,7 +34,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     /*upload variables*/
 
-	private static final String LOCATION = "/home/alis/mytemp";
+	private static final String LOCATION = "/Applications/MAMP/htdocs/tmp";
 
 	private static final long MAX_FILE_SIZE = 1024 * 1024 * 25;//25MB
 

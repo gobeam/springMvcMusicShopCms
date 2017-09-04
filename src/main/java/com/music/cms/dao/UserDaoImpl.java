@@ -40,11 +40,11 @@ public class UserDaoImpl implements UserDao {
         User user = (User) session.load(User.class, new Integer(id));
 
 
-        //getting revision data
-        AuditReader auditReader = AuditReaderFactory.get(session);
-
-        User city_rev1 = auditReader.find(User.class, new Integer(id), 1L);
-       // auditReader.getUs
+//        //getting revision data
+//        AuditReader auditReader = AuditReaderFactory.get(session);
+//
+//        User city_rev1 = auditReader.find(User.class, new Integer(id), 1L);
+//       // auditReader.getUs
 
 
         if (user != null)

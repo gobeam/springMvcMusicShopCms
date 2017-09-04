@@ -1,5 +1,7 @@
 package com.music.cms.model;
 
+import com.music.cms.validator.ImageValidationMime;
+import com.music.cms.validator.ImageValidationSize;
 import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,8 @@ public class Category {
     private byte[] image;
 
     @Transient
+    @ImageValidationSize
+    @ImageValidationMime
     private MultipartFile file;
 
     public MultipartFile getFile() {
