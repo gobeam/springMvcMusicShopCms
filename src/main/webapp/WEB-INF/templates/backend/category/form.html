@@ -110,7 +110,7 @@
                                         <input type="file" th:field="*{file}" class="form-control1" id="file"/>
                                         <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}"
                                               class="validation-message"></span>
-                                        <div th:if="${ category != null }"><img class="img-thumbnail" th:src="@{|/admin/category/${category.getId() + '.gif'} |}"></div>
+                                        <div th:if="${ category != null }"><img class="img-thumbnail image-category"  th:src="@{|/admin/category/${category.getId() + '.gif'} |}"></div>
                                     </div>
                                 </div>
 

@@ -2844,3 +2844,7 @@ ul.dropdown-menu.dropdown-menu-right {
 .validation-message{
     color: firebrick;
 }
+.image-category{
+    max-height: 100px;
+    min-width: 100px;
+}

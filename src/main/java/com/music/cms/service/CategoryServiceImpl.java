@@ -51,6 +51,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Integer id) {
+        Category category = categoryDao.findById(id);
+        if(category != null)
+        {
+            categoryDao.delete(category);
+        }
+
 
     }
 

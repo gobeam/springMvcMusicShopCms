@@ -67,8 +67,8 @@ public class CategoryDaoImpl implements CategoryDao {
 
             }catch(RuntimeException rne){
 
-        }
-        throw e;
+            }
+            throw e;
 
         }finally {
             if(session != null)
@@ -110,7 +110,35 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void delete(Category category) {
+        Session session = null;
+        Transaction tx = null;
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            session.delete(category);
+            tx.commit();
+
+
+        }catch (RuntimeException e)
+        {
+            try{
+                tx.rollback();
+
+            }catch (RuntimeException re)
+            {
+
+            }
+            throw e;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+
+        }
 
     }
 
