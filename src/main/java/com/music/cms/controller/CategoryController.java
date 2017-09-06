@@ -4,6 +4,10 @@ import com.music.cms.FlashMessage;
 import com.music.cms.model.Category;
 import com.music.cms.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -118,5 +122,14 @@ public class CategoryController {
 
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("Category successfully updated!", FlashMessage.Status.SUCCESS));
         return "redirect:/admin/category";
+    }
+
+    @RequestMapping(value = "/{id}.gif", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> categoryImage(@PathVariable("id") Integer id)
+    {
+        byte[] imageContent = categoryService.findById(id).getImage();
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
 }

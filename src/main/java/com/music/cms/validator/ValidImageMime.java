@@ -22,14 +22,16 @@ public class ValidImageMime implements ConstraintValidator<ImageValidationMime, 
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
         try {
             ArrayList<String> mimes = new ArrayList<String>();
-            mimes.add("jpg");
-            mimes.add("JPG");
-            mimes.add("JPEG");
-            mimes.add("jpeg");
-            mimes.add("png");
+            mimes.add("image/jpg");
+            mimes.add("image/JPG");
+            mimes.add("image/JPEG");
+            mimes.add("image/jpeg");
+            mimes.add("image/png");
             if(file.getBytes() != null)
             {
+
                 System.out.println("image not null!");
+                System.out.println(file.getContentType());
                 if(mimes.contains(file.getContentType()))
                 {
 

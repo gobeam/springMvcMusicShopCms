@@ -17,17 +17,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void saveCategory(Category category) {
-
-        try {
-            if(category.getFile() != null)
-            {
-                MultipartFile file = category.getFile();
-                category.setImage(file.getBytes());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(category.getFile() != null)
+        {
+            category = setIfImageexists(category);
         }
+
 
         categoryDao.save(category);
 
@@ -45,12 +39,34 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(Category category) {
+
+        if(category.getFile() != null)
+        {
+            category = setIfImageexists(category);
+        }
+
         categoryDao.update(category);
 
     }
 
     @Override
     public void delete(Integer id) {
+
+    }
+
+    public Category setIfImageexists(Category category)
+    {
+        try {
+            if(category.getFile() != null)
+            {
+                MultipartFile file = category.getFile();
+                category.setImage(file.getBytes());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return category;
 
     }
 }
