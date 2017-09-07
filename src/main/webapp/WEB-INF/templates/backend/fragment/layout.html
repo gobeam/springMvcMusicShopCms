@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head(page_title)" lang="en">
     <meta charset="UTF-8"/>
@@ -24,12 +24,15 @@
 
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link th:href="@{/resources/backend/css/bootstrap.min.css}" rel='stylesheet' type='text/css' />
+
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Custom Theme files -->
     <link th:href="@{/resources/backend/css/style.css}" rel='stylesheet' type='text/css' />
     <link th:href="@{/resources/backend/css/font-awesome.css}" rel="stylesheet" />
     <link th:href="@{/resources/backend/css/owl.carousel.css}" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{~/resources/backend/css/graph.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css}">
 
 
 
@@ -107,6 +110,137 @@
 
 <body>
 
+<div th:fragment="logo" class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <h1> <a class="navbar-brand" th:href="@{|/admin/home|}">Music</a></h1>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div th:fragment="topnavbar" class="drop-men" th:style="|padding: 15px;|">
+    <ul class=" nav_1">
+
+        <li class="dropdown at-drop">
+            <a href="#" class="dropdown-toggle dropdown-at " data-toggle="dropdown"><i class="fa fa-globe"></i> <span class="number">5</span></a>
+            <ul class="dropdown-menu menu1 " role="menu">
+                <li><a href="#">
+
+                    <div class="user-new">
+                        <p>New user registered</p>
+                        <span>40 seconds ago</span>
+                    </div>
+                    <div class="user-new-left">
+
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                </a></li>
+                <li><a href="#">
+                    <div class="user-new">
+                        <p>Someone special liked this</p>
+                        <span>3 minutes ago</span>
+                    </div>
+                    <div class="user-new-left">
+
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                </a></li>
+                <li><a href="#">
+                    <div class="user-new">
+                        <p>John cancelled the event</p>
+                        <span>4 hours ago</span>
+                    </div>
+                    <div class="user-new-left">
+
+                        <i class="fa fa-times"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                </a></li>
+                <li><a href="#">
+                    <div class="user-new">
+                        <p>The server is status is stable</p>
+                        <span>yesterday at 08:30am</span>
+                    </div>
+                    <div class="user-new-left">
+
+                        <i class="fa fa-info"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                </a></li>
+                <li><a href="#">
+                    <div class="user-new">
+                        <p>New comments waiting approval</p>
+                        <span>Last Week</span>
+                    </div>
+                    <div class="user-new-left">
+
+                        <i class="fa fa-rss"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                </a></li>
+                <li><a href="#" class="view">View all messages</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret" ><label sec:authentication="name"></label><i class="caret"></i></span><img src="images/wo.jpg"></a>
+            <ul class="dropdown-menu " role="menu">
+                <!--<li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>-->
+                <!--<li><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox</a></li>-->
+                <!--<li><a href="calendar.html"><i class="fa fa-calendar"></i>Calender</a></li>-->
+                <li><a th:href="@{|/logout|}"><i class="fa fa-sign-out"></i>Logout</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div><!-- /.navbar-collapse -->
+
+
+<!-- flash message starts -->
+
+<div th:fragment="flash" th:if="${flash != null}"  th:classappend="'alert-' + ${#strings.toLowerCase(flash.status)}" class="alert alert-success alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <p th:text="${flash.message}" ></p>
+</div>
+
+<!-- flash message ends -->
+
+<!-- navbar -->
+
+<div th:fragment="navbar" class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+
+            <li>
+                <a th:href="@{/admin/home}" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboards</span> </a>
+            </li>
+
+            <!-- user mgmt-->
+            <li>
+                <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-users nav_icon"></i> <span class="nav-label">User Management</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a th:href="@{|/admin/user|}" class=" hvr-bounce-to-right"> <i class="fa fa-user-plus nav_icon"></i>Users</a></li>
+
+                    <li><a th:href="@{|/admin/role|}" class=" hvr-bounce-to-right"><i class="fa fa-user-circle nav_icon"></i>Roles</a></li>
+
+                </ul>
+            </li>
+
+
+            <li>
+                <a th:href="@{/admin/category}" class=" hvr-bounce-to-right"><i class="fa fa-tags nav_icon" aria-hidden="true"></i><span class="nav-label">Category</span> </a>
+            </li>
+
+
+
+        </ul>
+    </div>
+</div>
+<!--navbar ends -->
+
 
 <div th:fragment="scripts">
     <!--scrolling js-->
@@ -115,7 +249,7 @@
     <!--//scrolling js-->
     <script th:src="@{~/resources/backend/js/bootstrap.min.js}"> </script>
     <script th:src="@{~/resources/backend/js/owl.carousel.js}"></script>
-    <script th:src="@{~/resources/backend/js/jquery.flot.js}"></script>
+    <!--<script th:src="@{~/resources/backend/js/jquery.flot.js}"></script>-->
     <!----Calender -------->
     <link  th:href="@{~/resources/backend/css/clndr.css}" rel="stylesheet" />
     <script th:src="@{~/resources/backend/js/underscore-min.js}" ></script>
@@ -124,6 +258,8 @@
     <script th:src="@{~/resources/backend/js/clndr.js}" type="text/javascript"></script>
 
     <script th:src="@{~/resources/backend/js/site.js}" ></script>
+
+    <script th:src="@{https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js}"></script>
     <!----End Calender -------->
     <script>
         $(document).ready(function() {
@@ -137,6 +273,7 @@
         });
     </script>
     <script>
+
         $(document).ready(function () {
 
             var graphData = [{
@@ -151,55 +288,55 @@
             }
             ];
 
-            $.plot($('#graph-lines'), graphData, {
-                series: {
-                    points: {
-                        show: true,
-                        radius: 5
-                    },
-                    lines: {
-                        show: true
-                    },
-                    shadowSize: 0
-                },
-                grid: {
-                    color: '#7f8c8d',
-                    borderColor: 'transparent',
-                    borderWidth: 20,
-                    hoverable: true
-                },
-                xaxis: {
-                    tickColor: 'transparent',
-                    tickDecimals: 2
-                },
-                yaxis: {
-                    tickSize: 1000
-                }
-            });
-
-            $.plot($('#graph-bars'), graphData, {
-                series: {
-                    bars: {
-                        show: true,
-                        barWidth: .9,
-                        align: 'center'
-                    },
-                    shadowSize: 0
-                },
-                grid: {
-                    color: '#7f8c8d',
-                    borderColor: 'transparent',
-                    borderWidth: 20,
-                    hoverable: true
-                },
-                xaxis: {
-                    tickColor: 'transparent',
-                    tickDecimals: 2
-                },
-                yaxis: {
-                    tickSize: 1000
-                }
-            });
+//            $.plot($('#graph-lines'), graphData, {
+//                series: {
+//                    points: {
+//                        show: true,
+//                        radius: 5
+//                    },
+//                    lines: {
+//                        show: true
+//                    },
+//                    shadowSize: 0
+//                },
+//                grid: {
+//                    color: '#7f8c8d',
+//                    borderColor: 'transparent',
+//                    borderWidth: 20,
+//                    hoverable: true
+//                },
+//                xaxis: {
+//                    tickColor: 'transparent',
+//                    tickDecimals: 2
+//                },
+//                yaxis: {
+//                    tickSize: 1000
+//                }
+//            });
+//
+//            $.plot($('#graph-bars'), graphData, {
+//                series: {
+//                    bars: {
+//                        show: true,
+//                        barWidth: .9,
+//                        align: 'center'
+//                    },
+//                    shadowSize: 0
+//                },
+//                grid: {
+//                    color: '#7f8c8d',
+//                    borderColor: 'transparent',
+//                    borderWidth: 20,
+//                    hoverable: true
+//                },
+//                xaxis: {
+//                    tickColor: 'transparent',
+//                    tickDecimals: 2
+//                },
+//                yaxis: {
+//                    tickSize: 1000
+//                }
+//            });
 
             $('#graph-bars').hide();
 
@@ -242,6 +379,9 @@
                     previousPoint = null;
                 }
             });
+
+            //datatable
+            $('#example').DataTable();
 
         });
     </script>

@@ -3,6 +3,7 @@ package com.music.cms.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -23,11 +24,24 @@ public class ThymeleafConfig {
 
     @Bean
     public SpringTemplateEngine templateEngine() {
+
+//        Set<IDialect> dialects = new LinkedHashSet<IDialect>();
+//        //dialects.add(new TilesDialect());
+//        dialects.add(new SpringSecurityDialect());
+//        //dialects.add(new ConditionalCommentsDialect());
+
+
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver( templateResolver() );
+        templateEngine.addDialect(new SpringSecurityDialect());
 
         return templateEngine;
     }
+
+//    @Bean
+//    public SpringSecurityDialect springSecurityDialect() {
+//        return new SpringSecurityDialect();
+//    }
 
     @Bean
     public ViewResolver viewResolver() {
