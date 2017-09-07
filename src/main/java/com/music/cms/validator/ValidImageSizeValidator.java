@@ -19,7 +19,7 @@ public class ValidImageSizeValidator implements ConstraintValidator<ImageValidat
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
         try {
-            if(file.getBytes() != null)
+            if(!file.isEmpty())
             {
                 if((file.getSize() /1024) > 200)
                 {
@@ -30,7 +30,7 @@ public class ValidImageSizeValidator implements ConstraintValidator<ImageValidat
 
             }
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
             return false;

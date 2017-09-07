@@ -27,10 +27,11 @@ public class ValidImageMime implements ConstraintValidator<ImageValidationMime, 
             mimes.add("image/JPEG");
             mimes.add("image/jpeg");
             mimes.add("image/png");
-            if(file.getBytes() != null)
+            if(!file.isEmpty())
             {
 
                 System.out.println("image not null!");
+                System.out.println(file.getBytes());
                 System.out.println(file.getContentType());
                 if(mimes.contains(file.getContentType()))
                 {
