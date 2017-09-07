@@ -57,8 +57,17 @@
                                 <div class="form-group">
                                     <label for="name" class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" th:field="*{Name}" class="form-control1" id="name" placeholder="Enter name" />
-                                        <span th:if="${#fields.hasErrors('Name')}" th:errors="*{Name}"
+                                        <input type="text" th:field="*{name}" class="form-control1" id="name" placeholder="Enter name" />
+                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="shortDescription" class="col-sm-2 control-label">Short Description</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{shortDescription}" class="form-control1" id="shortDescription" placeholder="Enter Short Description" />
+                                        <span th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"
                                               class="validation-message"></span>
                                     </div>
                                 </div>
@@ -110,7 +119,7 @@
                                         <input type="file" th:field="*{file}" class="form-control1" id="file"/>
                                         <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}"
                                               class="validation-message"></span>
-                                        <div th:if="${ category != null }"><img class="img-thumbnail image-category"  th:src="@{|/admin/category/${category.getId() + '.gif'} |}"></div>
+                                        <div th:if="${ category.getName() != null }"><img class="img-thumbnail"  th:src="@{|/admin/category/${category.getId() + '.gif'} |}"></div>
                                     </div>
                                 </div>
 

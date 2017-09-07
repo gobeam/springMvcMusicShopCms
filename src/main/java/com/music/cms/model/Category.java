@@ -16,13 +16,16 @@ public class Category {
     private Integer id;
 
     @NotEmpty(message = "Category Name cannot be empty!")
-    private String Name;
+    private String name;
+
+    @NotEmpty(message = "Category short description cannot be empty!")
+    private String shortDescription;
 
     @NotNull(message = "At least one status must be selected!")
     private Boolean status;
 
     @Lob @Basic(fetch = FetchType.LAZY)
-    @Column(name="image", nullable=true)
+    @Column(nullable=true)
     private byte[] image;
 
     @Transient
@@ -32,6 +35,22 @@ public class Category {
 
     public MultipartFile getFile() {
         return file;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public void setFile(MultipartFile file) {
@@ -62,19 +81,11 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", Name='" + Name + '\'' +
+                ", Name='" + name + '\'' +
                 ", status=" + status +
                 '}';
     }

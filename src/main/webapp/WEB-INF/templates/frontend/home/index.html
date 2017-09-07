@@ -95,30 +95,14 @@
 <div class="albums">
     <div class="container">
         <div class="album-info">
-            <div class="col-md-3 album">
+
+            <div th:each="cat : ${categories}" class="col-md-3 album">
                 <div class="album-box">
-                    <h4>Music</h4>
-                    <h5>For all Ages</h5>
+                    <h4 th:text="${cat.name}">Music</h4>
+                    <h5 th:text="${cat.shortDescription}">For all Ages</h5>
                 </div>
             </div>
-            <div class="col-md-3 album">
-                <div class="album-box">
-                    <h4>ALBUMS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="col-md-3 album">
-                <div class="album-box">
-                    <h4>SONGS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
-            <div class="col-md-3 album lost">
-                <div class="album-box">
-                    <h4>VIDEOS</h4>
-                    <h5>For all Ages</h5>
-                </div>
-            </div>
+
             <div class="clearfix"></div>
         </div>
         <div class="music-info">
