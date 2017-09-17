@@ -5,15 +5,11 @@ import com.music.cms.dao.UserDao;
 import com.music.cms.model.Role;
 import com.music.cms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
@@ -25,9 +21,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userRepository;
 
-    @Autowired
-    private RoleDao roleRepository;
-
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -37,14 +30,32 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findById(user.getRole_id());
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
+    }
+
+    @Override
+    public void update(User user) {
+        userRepository.update(user);
+    }
+
+    @Override
+    public void updatePartial(User user) {
+        userRepository.updatePartial(user);
+    }
+
+    @Override
+    public User findUserByEmailForUpdate(User user) {
+        return userRepository.findUserByEmailForUpdate(user);
     }
 
     @Override
     public User findById(Integer id) {
        return userRepository.findById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAllUsers();
     }
 
 

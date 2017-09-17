@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="backend/fragment/layout :: head('favorites')"></head>
+<body>
+<!--<div th:replace="backend/fragment/layout :: nav"></div>-->
+<!--<div th:replace="backend/fragment/layout :: searchbar"></div>-->
+<!--<div th:replace="backend/fragment/layout :: flash"></div>-->
+<!--<div class="row user-meta">-->
+<!--<div class="col s9= l12">-->
+<!--<h2 th:text="${username}">Jane Doe</h2>-->
+<!--<div class="meta" th:text="|${#lists.size(gifs)} Favorites|"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="wrapper">
+    <!--<div class="pull-left">-->
+        <!--<img src="images/wo.jpg">-->
+    <!--</div>-->
+    <div th:replace="backend/fragment/layout :: logo"></div>
+    <!-- topnavbar -->
+    <div th:replace="backend/fragment/layout :: topnavbar"></div>
+    <!-- topnavbar end -->
+
+
+    <div class="clearfix">
+
+    </div>
+    <nav>
+        <div th:replace="backend/fragment/layout :: navbar"></div>
+
+
+    </nav>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="content-main">
+
+            <div class="grid-form " th:style="@{|height: 65px|}">
+                <div class="new-btn pull-right">
+
+                    <a class="btn btn-primary" th:href="@{|/admin/category/create|}"><i class="fa fa-plus" style="margin-right:10px;"></i>Add Category</a>
+
+                </div>
+            </div>
+
+            <!--banner-->
+            <div class="banner">
+
+                <h2>
+                    <a href="index.html">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                    <span>Dashboard</span>
+                </h2>
+            </div>
+            <!--//banner-->
+            <!--content-->
+            <div class="grid-form">
+                <!--<a class="btn btn-primary pull-right" th:href="@{|/admin/category/create|}" ><div class="clearfix" th:style="@{|color:white|}">Add</a>-->
+
+                <div th:replace="backend/fragment/layout :: flash"></div>
+
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="cat : ${categories}">
+                        <td th:text="${cat.Name}">Tiger Nixon</td>
+                        <td> <span class='pull pull-left bs-label' th:classappend="(${cat.status == true ? 'label-success' : 'label-danger'})" th:text="(${cat.status == true ? 'Active' : 'Inactive'})">Active</span></td>
+                        <td>
+                            <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{|/admin/category/${cat.id}/edit|}"><i class="glyphicon glyphicon-edit" th:style="@{|color:white|}"></i>&nbsp;Edit</a>
+                            <form th:style="@{|display: inline-block|}" th:action="@{|/admin/category/${cat.id}/edit|}" method="POST" th:object="${category}">
+                                <button class="btn btn-round btn-sm btn-danger btn_glyph" type="submit"><i class="glyphicon glyphicon-trash" th:style="@{|color:white|}"></i>&nbsp;Delete</button>
+
+                            </form>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="copy">
+                <p> &copy; 2016 Minimal. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+<div th:replace="backend/fragment/layout :: scripts"></div>
+</body>
+</html>

@@ -1,11 +1,14 @@
 package com.music.cms.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
 /**
  * Created by alis on 8/3/17.
  */
 @Entity
+@Audited
 public class Role {
 
     @Id
@@ -28,6 +31,14 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
 

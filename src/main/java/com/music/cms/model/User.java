@@ -1,5 +1,7 @@
 package com.music.cms.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,26 +15,36 @@ import java.util.Set;
  * Created by alis on 8/3/17.
  */
 @Entity
+@Audited
 public class User {
+
+    public interface GroupValidationAdd {};
+
+    public interface GroupValidationUpdate {};
+
+    public interface GroupValidationRegister {};
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Email(message = "Please privide valid email!")
-    @NotEmpty(message = "Email cannot be empty!")
+    @Email(message = "Please provide valid email!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
+    @NotEmpty(message = "Email cannot be empty!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String email;
 
-    @Size(min = 6,message = "Password cannot be less than 6 character!")
-    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 6,message = "Password cannot be less than 6 character!",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
+    @NotBlank(message = "Password cannot be blank",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
+    @NotNull(message = "Password cannot be blank",groups = {GroupValidationAdd.class,GroupValidationRegister.class})
     private String password;
 
-    @NotBlank(message = "First name cannot be blank!")
+    @NotBlank(message = "First name cannot be blank!",groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String first_name;
 
-    @NotBlank(message = "Last name cannot be blank")
+    @NotBlank(message = "Last name cannot be blank",groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String last_name;
 
-    @NotBlank(message = "Address cannot be blank!")
+    @NotBlank(message = "Address cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String address;
 
     @Column(nullable = true)
@@ -41,25 +53,29 @@ public class User {
     @Column(nullable = true)
     private String phone;
 
-    @NotBlank(message = "Zip cannot be blank!")
+    @NotBlank(message = "Zip cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String zip;
 
-    @NotBlank(message = "Country cannot be blank!")
-    private String Country;
+    @NotBlank(message = "Country cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
+    private String country;
 
-    @NotBlank(message = "City cannot be blank!")
+    @NotBlank(message = "City cannot be blank!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class,GroupValidationRegister.class})
     private String city;
 
-    @NotNull(message = "Status must be specified!")
+    @NotNull(message = "Status must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Boolean status;
 
     @Transient
-    @NotNull(message = "Role must be specified!")
+    @NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Integer role_id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+
 
     public Integer getId() {
         return id;
@@ -126,11 +142,11 @@ public class User {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 
     public String getCity() {
@@ -171,5 +187,23 @@ public class User {
 
     public void setRole_id(Integer role_id) {
         this.role_id = role_id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", address='" + address + '\'' +
+                ", image='" + image + '\'' +
+                ", phone='" + phone + '\'' +
+                ", zip='" + zip + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

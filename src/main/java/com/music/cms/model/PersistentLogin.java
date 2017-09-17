@@ -10,10 +10,10 @@ public class PersistentLogin implements Serializable{
 	@Id
 	private String series;
 
-	@Column(name="EMAIL", unique=true, nullable=false)
+	@Column(name="email", unique=true, nullable=false)
 	private String email;
 	
-	@Column(name="TOKEN", unique=true, nullable=false)
+	@Column(name="token", unique=true, nullable=false)
 	private String token;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -50,6 +50,14 @@ public class PersistentLogin implements Serializable{
 	public void setLast_used(Date last_used) {
 		this.last_used = last_used;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "PersistentLogin{" +
+				"series='" + series + '\'' +
+				", email='" + email + '\'' +
+				", token='" + token + '\'' +
+				", last_used=" + last_used +
+				'}';
+	}
 }
