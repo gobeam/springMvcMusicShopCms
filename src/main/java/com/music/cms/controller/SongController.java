@@ -29,6 +29,7 @@ public class SongController {
         List<Song> songs = songService.listAll();
         model.addAttribute("songs",songs);
         model.addAttribute("pageTitle","Song Management");
+        model.addAttribute("Createbutton","Add Song");
         return "backend/song/index";
 
     }
@@ -41,19 +42,20 @@ public class SongController {
             model.addAttribute("song",new Song());
         }
         model.addAttribute("button","Add");
-        model.addAttribute("pageTitle","Add Songs");
+        model.addAttribute("pageTitle","Add Song");
         model.addAttribute("url",String.format("/admin/song/store"));
         return "backend/song/form";
 
     }
 
     @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String store(@Valid @ModelAttribute("song") Song song, BindingResult result, RedirectAttributes redirect)
+    public String store(@Valid @ModelAttribute("song") Song song, BindingResult result, RedirectAttributes redirect) throws Exception
     {
         if(result.hasErrors())
         {
             redirect.addFlashAttribute("org.springframework.validation.BindingResult.song",result);
             redirect.addFlashAttribute("song",song);
+            return "redirect:/admin/song/create";
         }
 
         songService.store(song);
@@ -85,13 +87,31 @@ public class SongController {
     }
 
     @RequestMapping(value = "/{id}/update" , method = RequestMethod.POST)
-    public String update(@PathVariable("id") Integer id,@ModelAttribute("song") Song song, BindingResult result, RedirectAttributes redirect)
+    public String update(@PathVariable("id") Integer id,@ModelAttribute("song") Song song, BindingResult result, RedirectAttributes redirect)throws Exception
     {
         if(result.hasErrors())
         {
             redirect.addFlashAttribute("org.springframework.validation.BindingResult.song",result);
             redirect.addFlashAttribute("song",song);
+            return String.format("redirect:/admin/song/%s/edit",id);
         }
+        songService.update(song);
+        redirect.addFlashAttribute("flash",new FlashMessage("Song updated successfully!",FlashMessage.Status.SUCCESS));
+        return "redirect:/admin/song";
+    }
+
+    @RequestMapping(value = "/{id}/delete",method = RequestMethod.POST)
+    public String destroy(@PathVariable("id") Integer id, RedirectAttributes redirect)
+    {
+        Song song = songService.findById(id);
+
+        if (song == null) {
+            redirect.addFlashAttribute("flash", new FlashMessage("Data not found!", FlashMessage.Status.DANGER));
+            return "redirect:/admin/song";
+        }
+        songService.destroy(id);
+        redirect.addFlashAttribute("flash",new FlashMessage("Song deleted successfully!",FlashMessage.Status.SUCCESS));
+        return "redirect:/admin/song";
 
     }
 

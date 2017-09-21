@@ -21,7 +21,7 @@ public class Song {
     @NotEmpty(message = "Singer name cannot be empty!")
     private String singer;
 
-    @NotEmpty(message = "Status must be specified!")
+    @NotNull(message = "Status must be specified!")
     private Boolean status;
 
     @NotNull(message = "Price field cannot be empty!")

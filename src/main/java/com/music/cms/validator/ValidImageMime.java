@@ -20,6 +20,8 @@ public class ValidImageMime implements ConstraintValidator<ImageValidationMime, 
 
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
+        System.out.println("this is for test!");
+        System.out.println(file.getSize());
         try {
             ArrayList<String> mimes = new ArrayList<String>();
             mimes.add("image/jpg");
