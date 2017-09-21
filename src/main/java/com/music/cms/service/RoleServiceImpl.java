@@ -24,4 +24,19 @@ public class RoleServiceImpl implements RoleService{
     public List<Role> getallRole() {
         return roleRepository.findAll();
     }
+
+    @Override
+    public void store(Role role) {
+         roleRepository.store(role);
+    }
+
+    @Override
+    public void update(Role role) {
+         roleRepository.update(role);
+    }
+
+    @Override
+    public void destroy(Integer id) {
+         roleRepository.destroy(id);
+    }
 }

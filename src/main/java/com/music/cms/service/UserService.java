@@ -23,5 +23,7 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    void destroy(Integer id);
+
 
 }

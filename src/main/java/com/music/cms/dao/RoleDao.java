@@ -13,4 +13,10 @@ public interface RoleDao {
     Role findById(Integer id);
 
     List<Role> findAll();
+
+    void store(Role role);
+
+    void update(Role role);
+
+    void destroy(Integer id);
 }

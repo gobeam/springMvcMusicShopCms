@@ -1,207 +1,43 @@
 package com.music.cms.dao;
 
-import com.music.cms.model.Role;
+import com.music.cms.model.Category;
+import com.music.cms.model.Song;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-/**
- * Created by alis on 8/6/17.
- */
-@Repository("roleDao")
-@Transactional
-public class RoleDaoImpl implements RoleDao{
+@Repository
+public class SongDaoImpl implements SongDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
-    public Role findByRole(String role) {
+    public List<Song> listAll() {
         Session session = null;
         Transaction tx = null;
-
         try{
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            tx.setTimeout(5);
-
-            Role roles = (Role) session.load(Role.class, new String(role));
-
-            tx.commit();
-            return roles;
-
-
-        }catch(RuntimeException e){
-            try{
-                tx.rollback();
-            }catch(RuntimeException rbe){
-
-            }
-            throw e;
-        }finally{
-
-            if(session!=null){
-                session.close();
-            }
-        }
-
-    }
-
-    @Override
-    public Role findById(Integer id) {
-
-        Session session = null;
-        Transaction tx = null;
-
-        try{
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            tx.setTimeout(5);
-
-           // Role roles = (Role) session.load(Role.class, new Integer(id));
-            org.hibernate.query.Query query = session.createQuery("from Role where id = :id ");
-            query.setParameter("id", id);
-
-
-            tx.commit();
-//            return roles;
-            return (Role)query.uniqueResult();
-
-
-        }catch(RuntimeException e){
-            try{
-                tx.rollback();
-            }catch(RuntimeException rbe){
-
-            }
-            throw e;
-        }finally{
-
-            if(session!=null){
-                session.close();
-            }
-        }
-    }
-
-    @Override
-    public List<Role> findAll() {
-        Session session = null;
-        Transaction tx = null;
-
-        try{
-            session = sessionFactory.openSession();
+            session =sessionFactory.openSession();
             tx = session.beginTransaction();
             tx.setTimeout(5);
 
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Role> criteriaQuery = builder.createQuery(Role.class);
-            criteriaQuery.from(Role.class);
-            List<Role> categories = session.createQuery(criteriaQuery).getResultList();
-
+            CriteriaQuery<Song> criteriaQuery = builder.createQuery(Song.class);
+            criteriaQuery.from(Song.class);
+            List<Song> songs = session.createQuery(criteriaQuery).getResultList();
             tx.commit();
+            return songs;
 
-            return categories;
 
-        }catch (RuntimeException e)
-        {
-            try{
-                tx.rollback();
-            }catch (RuntimeException rne)
-            {
-
-            }
-            throw e;
-
-        }finally {
-            if(session!=null){
-                session.close();
-            }
-        }
-    }
-
-    @Override
-    public void store(Role role) {
-        Session session = null;
-        Transaction tx = null;
-        try{
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            tx.setTimeout(6);
-            session.persist(role);
-            tx.commit();
 
         }catch (RuntimeException rne)
         {
-            try {
-                tx.rollback();
-
-            }catch (RuntimeException e)
-            {
-
-            }
-            throw rne;
-        }finally {
-            if(session!=null){
-                session.close();
-            }
-
-        }
-    }
-    @Override
-    public void update(Role role) {
-        Session session = null;
-        Transaction tx = null;
-        try{
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            tx.setTimeout(6);
-            session.update(role);
-            tx.commit();
-
-        }catch (RuntimeException rne)
-        {
-            try {
-                tx.rollback();
-
-            }catch (RuntimeException e)
-            {
-
-            }
-            throw rne;
-
-        }finally {
-            if(session!=null){
-                session.close();
-            }
-
-        }
-    }
-
-    @Override
-    public void destroy(Integer id) {
-        Session session = null;
-        Transaction tx = null;
-        try{
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
-            tx.setTimeout(5);
-            Role role= findById(id);
-            if(role != null)
-            {
-                session.delete(role);
-            }
-            tx.commit();
-
-        }catch (RuntimeException rne){
             try{
                 tx.rollback();
 
@@ -217,6 +53,143 @@ public class RoleDaoImpl implements RoleDao{
                 session.close();
             }
 
+        }
+    }
+
+    @Override
+    public Song findById(Integer id) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            org.hibernate.query.Query query = session.createQuery("from Song where id = :id");
+            query.setParameter("id", id);
+            tx.commit();
+            return (Song)query.uniqueResult();
+
+        }catch (RuntimeException rne)
+        {
+            try {
+                tx.rollback();
+
+            }catch (RuntimeException e)
+            {
+
+            }
+            throw rne;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public void store(Song song) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+
+            session.persist(song);
+
+        }catch (RuntimeException rne)
+        {
+            try {
+                tx.rollback();
+
+            }catch (RuntimeException e)
+            {
+
+            }
+            throw rne;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
+
+    }
+
+    @Override
+    public void update(Song song) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            if(song != null)
+            {
+                session.update(song);
+            }
+
+            tx.commit();
+
+        }catch (RuntimeException rne){
+            try {
+                tx.rollback();
+
+            }catch (RuntimeException e)
+            {
+
+            }
+            throw rne;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
+        }
+
+    }
+
+    @Override
+    public void destroy(Integer id) {
+        Session session = null;
+        Transaction tx = null;
+
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            tx.setTimeout(5);
+            Song song = findById(id);
+            if(song != null)
+            {
+                session.delete(song);
+            }
+            tx.commit();
+
+
+        }catch (RuntimeException rne)
+        {
+            try {
+                tx.rollback();
+
+            }catch (RuntimeException e)
+            {
+
+            }
+            throw rne;
+
+        }finally {
+            if(session != null)
+            {
+                session.close();
+            }
         }
 
     }

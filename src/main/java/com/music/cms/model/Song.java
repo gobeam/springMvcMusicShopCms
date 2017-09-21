@@ -27,6 +27,9 @@ public class Song {
     @NotNull(message = "Price field cannot be empty!")
     private Long price;
 
+    @NotNull(message = "Stock must be specified!")
+    private Integer stock;
+
     @Column(nullable = true)
     private Long discount;
 
@@ -38,6 +41,14 @@ public class Song {
     @ImageValidationSize
     @ImageValidationMime
     private MultipartFile file;
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
     public Integer getId() {
         return id;

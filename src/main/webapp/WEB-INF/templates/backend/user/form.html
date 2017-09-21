@@ -83,7 +83,7 @@
                                 <div th:if="${ store == true }" class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Password</label>
                                     <div class="col-sm-8">
-                                        <input type="text" th:field="*{password}" class="form-control1" id="password" placeholder="Enter password" />
+                                        <input type="password" th:field="*{password}" class="form-control1" id="password" placeholder="Enter password" />
                                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                               class="validation-message"></span>
                                     </div>
@@ -158,7 +158,7 @@
                                     <label for="selector1" class="col-sm-2 control-label">Role</label>
                                     <div class="col-sm-8"><select name="role_id" id="selector1" class="form-control1">
                                         <option th:value="${ null }" >Select Role</option>
-                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"  th:selected="${(store != true)} ? ${(user.getRoles()[0].getRole()) == (role.role)} : false"  >ADMIN</option>
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"  th:selected="${(store != true)} ? ${(userRoleName) == (role.role)} : false"  >ADMIN</option>
                                     </select>
                                         <span th:if="${#fields.hasErrors('role_id')}" th:errors="*{role_id}"
                                               class="validation-message"></span>

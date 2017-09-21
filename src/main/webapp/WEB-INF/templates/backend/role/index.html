@@ -70,7 +70,7 @@
                         <td th:text="${role.role}">Tiger Nixon</td>
                         <td>
                             <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{|/admin/role/${role.id}/edit|}"><i class="glyphicon glyphicon-edit" th:style="@{|color:white|}"></i>&nbsp;Edit</a>
-                            <form th:style="@{|display: inline-block|}" th:action="@{|/admin/role/${role.id}/edit|}" method="POST" th:object="${role}">
+                            <form th:style="@{|display: inline-block|}" th:action="@{|/admin/role/${role.id}/delete|}" method="POST" th:object="${role}">
                                 <button class="btn btn-round btn-sm btn-danger btn_glyph" type="submit"><i class="glyphicon glyphicon-trash" th:style="@{|color:white|}"></i>&nbsp;Delete</button>
 
                             </form>

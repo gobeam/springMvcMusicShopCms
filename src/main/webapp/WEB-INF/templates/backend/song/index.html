@@ -14,7 +14,7 @@
 
 <div id="wrapper">
     <!--<div class="pull-left">-->
-        <!--<img src="images/wo.jpg">-->
+    <!--<img src="images/wo.jpg">-->
     <!--</div>-->
     <div th:replace="backend/fragment/layout :: logo"></div>
     <!-- topnavbar -->
@@ -36,7 +36,7 @@
             <div class="grid-form " th:style="@{|height: 65px|}">
                 <div class="new-btn pull-right">
 
-                    <a class="btn btn-primary" th:href="@{|/admin/user/create|}"><i class="fa fa-plus" style="margin-right:10px;"></i>Add User</a>
+                    <a class="btn btn-primary" th:href="@{|/admin/song/create|}"><i class="fa fa-plus" style="margin-right:10px;"></i>Add Role</a>
 
                 </div>
             </div>
@@ -47,34 +47,34 @@
                 <h2>
                     <a href="index.html">Home</a>
                     <i class="fa fa-angle-right"></i>
-                    <span th:text="${pageTitle}">Dashboard</span>
+                    <span>Dashboard</span>
                 </h2>
             </div>
             <!--//banner-->
             <!--content-->
             <div class="grid-form">
-                <!--<a class="btn btn-primary pull-right" th:href="@{|/admin/useregory/create|}" ><div class="clearfix" th:style="@{|color:white|}">Add</a>-->
+                <!--<a class="btn btn-primary pull-right" th:href="@{|/admin/song/create|}" ><div class="clearfix" th:style="@{|color:white|}">Add</a>-->
 
                 <div th:replace="backend/fragment/layout :: flash"></div>
 
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th>Title</th>
+                        <th>Singer</th>
+                        <th>Stock</th>
                         <th>Action</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="@{ ${user.first_name} + ' ' + ${user.last_name} }">Tiger Nixon</td>
-                        <td th:text="${user.email}">Tiger Nixon</td>
-                        <td> <span class='pull pull-left bs-label' th:classappend="(${user.status == true ? 'label-success' : 'label-danger'})" th:text="(${user.status == true ? 'Active' : 'Inactive'})">Active</span></td>
+                    <tr th:each="song : ${songs}">
+                        <td th:text="${song.title}">Tiger Nixon</td>
+                        <td th:text="${song.singer}">Tiger Nixon</td>
+                        <td th:text="${song.stock}">Tiger Nixon</td>
                         <td>
-                            <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{|/admin/user/${user.id}/edit|}"><i class="glyphicon glyphicon-edit" th:style="@{|color:white|}"></i>&nbsp;Edit</a>
-                            <form th:style="@{|display: inline-block|}" th:action="@{|/admin/user/${user.id}/delete|}" method="POST" th:object="${user}">
+                            <a class="btn btn-round btn-sm btn-info btn_glyph" th:href="@{|/admin/song/${song.id}/edit|}"><i class="glyphicon glyphicon-edit" th:style="@{|color:white|}"></i>&nbsp;Edit</a>
+                            <form th:style="@{|display: inline-block|}" th:action="@{|/admin/song/${song.id}/delete|}" method="POST" th:object="${song}">
                                 <button class="btn btn-round btn-sm btn-danger btn_glyph" type="submit"><i class="glyphicon glyphicon-trash" th:style="@{|color:white|}"></i>&nbsp;Delete</button>
 
                             </form>

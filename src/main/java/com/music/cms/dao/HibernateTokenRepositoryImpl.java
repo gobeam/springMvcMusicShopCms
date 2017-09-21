@@ -32,7 +32,6 @@ public class HibernateTokenRepositoryImpl
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
-		System.out.println("createNewToken");
 		Session session = null;
 		Transaction tx = null;
 		try{
@@ -46,8 +45,11 @@ public class HibernateTokenRepositoryImpl
 			query.select(root).where(builder.equal(root.get("email"), token.getUsername()));
 			Query<PersistentLogin> q=session.createQuery(query);
 			List<PersistentLogin> persistentLoginCheck = q.getResultList();
-			if (!persistentLoginCheck.isEmpty())
+			System.out.println("persistent login entry yo");
+			System.out.println(persistentLoginCheck);
+			if (persistentLoginCheck.isEmpty())
 			{
+				System.out.println("yo you reach here");
 				PersistentLogin persistentLogin = new PersistentLogin();
 				persistentLogin.setUsername(token.getUsername());
 				persistentLogin.setSeries(token.getSeries());

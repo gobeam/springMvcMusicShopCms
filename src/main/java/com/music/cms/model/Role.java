@@ -1,8 +1,10 @@
 package com.music.cms.model;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by alis on 8/3/17.
@@ -15,6 +17,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Role name cannot be blank!")
     private String role;
 
     public Integer getId() {

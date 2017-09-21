@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/admin/user")
@@ -45,7 +47,11 @@ public class UserController {
 
         System.out.println(roles);
 
-        model.addAttribute("user",new User());
+        if(!model.containsAttribute("user"))
+        {
+            model.addAttribute("user",new User());
+        }
+
         model.addAttribute("button","Add");
         model.addAttribute("pageTitle","Add User");
         model.addAttribute("url",String.format("/admin/user/store"));
@@ -57,17 +63,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/store",method = RequestMethod.POST)
-    public String store(@Validated(User.GroupValidationAdd.class) User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
+    public String store(@Validated(User.GroupValidationAdd.class) @ModelAttribute("user") User user, BindingResult result, RedirectAttributes redirectAttributes) throws Exception
     {
-//        System.out.println("damna");
-//        System.out.println(user.getRole_id());
         if(result.hasErrors())
         {
-            model.addAttribute("button","Add");
-            model.addAttribute("pageTitle","Add User");
-            model.addAttribute("url",String.format("/admin/user/store"));
-            model.addAttribute("store",true);
-            return "backend/user/form";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user",result);
+            redirectAttributes.addFlashAttribute("user","user");
+            return "redirect:/admin/user/create";
         }
         userService.saveUser(user);
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("User updated successfully!",FlashMessage.Status.SUCCESS));
@@ -76,19 +78,34 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/edit",method = RequestMethod.GET)
-    public String edit(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, ModelMap model)
-    {
+    public String edit(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, ModelMap model) {
         User user = userService.findById(id);
-        if(user == null)
-        {
-            redirectAttributes.addFlashAttribute("flash",new FlashMessage("User not found!",FlashMessage.Status.DANGER));
-            return  "redirect:/admin/user";
-
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("User not found!", FlashMessage.Status.DANGER));
+            return "redirect:/admin/user";
         }
 
         List<Role> roles = roleService.getallRole();
 
-        model.addAttribute("user",user);
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", user);
+        }
+
+        if(user.getRoles() != null)
+        {
+            Integer i = 0;
+            String userRoleName = null;
+            Set<Role> roleSet = user.getRoles();
+            for (Role userRole : roleSet) {
+                i++;
+                if (i == 1) {
+                    userRoleName = userRole.getRole();
+                }
+            }
+            model.addAttribute("userRoleName",userRoleName);
+        }
+
+
         model.addAttribute("button","Update");
         model.addAttribute("pageTitle","Edit User");
         model.addAttribute("url",String.format("/admin/user/%s/update",id));
@@ -101,15 +118,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Integer id, @Validated(User.GroupValidationUpdate.class) User user, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) throws Exception
+    public String update(@PathVariable("id") Integer id, @Validated(User.GroupValidationUpdate.class) @ModelAttribute("user") User user, BindingResult result, RedirectAttributes redirectAttributes) throws Exception
     {
         if(result.hasErrors())
         {
-            model.addAttribute("button","Update");
-            model.addAttribute("pageTitle","Edit User");
-            model.addAttribute("url",String.format("/admin/user/%s/update",id));
-            model.addAttribute("store",false);
-            return "backend/user/form";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user",result);
+            redirectAttributes.addFlashAttribute("user",user);
+            return String.format("redirect:/admin/user/%s/edit",id);
         }
 
         User userCheck = userService.findById(id);
@@ -133,6 +148,14 @@ public class UserController {
 
         return  "redirect:/admin/user";
 
+    }
+
+    @RequestMapping(value = "/{id}/delete",method = RequestMethod.POST)
+    public String destroy(@PathVariable("id")Integer id,RedirectAttributes redirectAttributes)
+    {
+        userService.destroy(id);
+        redirectAttributes.addFlashAttribute("flash",new FlashMessage("User deleted successfully!",FlashMessage.Status.SUCCESS));
+        return  "redirect:/admin/user";
     }
 
 

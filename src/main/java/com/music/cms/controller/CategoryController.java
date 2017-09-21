@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,7 +40,10 @@ public class CategoryController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(ModelMap model)
     {
-        model.addAttribute("category",new Category());
+        if (!model.containsAttribute("category")) {
+            model.addAttribute("category", new Category());
+        }
+        //model.addAttribute("category",new Category());
         model.addAttribute("button","Add");
         model.addAttribute("pageTitle","Add Category");
         model.addAttribute("url",String.format("/admin/category/store"));
@@ -52,14 +52,13 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/store",method = RequestMethod.POST)
-    public String store(@Valid Category category, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes)
+    public String store(@Valid @ModelAttribute("category") Category category, BindingResult result, RedirectAttributes redirectAttributes)
     {
         if(result.hasErrors())
         {
-            model.addAttribute("button","Add");
-            model.addAttribute("pageTitle","Add Category");
-            model.addAttribute("url",String.format("/admin/category/store"));
-            return "backend/category/form";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
+            redirectAttributes.addFlashAttribute("category", category);
+            return "redirect:/admin/category/create";
         }
         categoryService.saveCategory(category);
         redirectAttributes.addFlashAttribute("flash",new FlashMessage("New Category created successfully!", FlashMessage.Status.SUCCESS));
@@ -81,7 +80,11 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("flash",new FlashMessage("Sorry category was not found!", FlashMessage.Status.DANGER));
             return "redirect:/admin/category";
         }
-        model.addAttribute("category",category);
+        if(!model.containsAttribute("category"))
+        {
+            model.addAttribute("category",category);
+        }
+
         model.addAttribute("button","Update");
         model.addAttribute("pageTitle","Edit Category");
         model.addAttribute("url",String.format("/admin/category/%s/update",id));
@@ -92,14 +95,13 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
-    public String update(@PathVariable("id") Integer id, @Valid Category category, BindingResult result,ModelMap model,RedirectAttributes redirectAttributes)
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("category") Category category, BindingResult result,ModelMap model,RedirectAttributes redirectAttributes)
             throws Exception {
         if(result.hasErrors())
-        {
-            model.addAttribute("button","Update");
-            model.addAttribute("pageTitle","Edit Category");
-            model.addAttribute("url",String.format("/admin/category/%s/update",id));
-            return "backend/category/form";
+        {redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
+            redirectAttributes.addFlashAttribute("category", category);
+            //return "redirect:/admin/category/create";
+            return String.format("redirect:/admin/category/%s/edit",id);
         }
 
         Category categoryCheck = categoryService.findById(id);

@@ -37,83 +37,67 @@
                 <h2>
                     <a th:href="@{|/admin/home|}">Home</a>
                     <i class="fa fa-angle-right"></i>
-                    <a th:href="@{|/admin/category|}">Categories</a>
+                    <a th:href="@{|/admin/song|}">Roles</a>
                     <i class="fa fa-angle-right"></i>
                     <span>Categories</span>
                 </h2>
             </div>
             <!--//banner-->
             <!--content-->
-
             <div class="grid-form">
-                <div th:replace="backend/fragment/layout ::  flash"></div>
+                <div th:replace="backend/fragment/layout :: flash"></div>
                 <div class="grid-form1">
                     <h3 th:text="${pageTitle}">Form Element</h3>
                     <div class="tab-content">
                         <div class="tab-pane active" id="horizontal-form">
-                            <form class="form-horizontal" th:action="${url}" th:object="${category}" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" th:action="${url}" th:object="${songs}" method="post">
 
                                 <!--<input type="hidden" name="_method" th:value="${method}">-->
 
                                 <div class="form-group">
-                                    <label for="name" class="col-sm-2 control-label">Name</label>
+                                    <label for="title" class="col-sm-2 control-label">Song Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" th:field="*{name}" class="form-control1" id="name" placeholder="Enter name" />
-                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                        <input type="text" th:field="*{title}" class="form-control1" id="title" placeholder="Enter Song name" />
+                                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
                                               class="validation-message"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="shortDescription" class="col-sm-2 control-label">Short Description</label>
+                                    <label for="singer" class="col-sm-2 control-label">Singer Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" th:field="*{shortDescription}" class="form-control1" id="shortDescription" placeholder="Enter Short Description" />
-                                        <span th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"
+                                        <input type="text" th:field="*{singer}" class="form-control1" id="singer" placeholder="Enter Singer name" />
+                                        <span th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"
                                               class="validation-message"></span>
                                     </div>
                                 </div>
 
-                                <!--<div class="form-group">-->
-                                <!--<label for="inputPassword" class="col-sm-2 control-label">Password</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<input type="password" class="form-control1" id="inputPassword" placeholder="Password">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label for="checkbox" class="col-sm-2 control-label">Checkbox</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<div class="checkbox-inline1"><label><input type="checkbox"> Unchecked</label></div>-->
-                                <!--<div class="checkbox-inline1"><label><input type="checkbox" checked=""> Checked</label></div>-->
-                                <!--<div class="checkbox-inline1"><label><input type="checkbox" disabled=""> Disabled Unchecked</label></div>-->
-                                <!--<div class="checkbox-inline1"><label><input type="checkbox" disabled="" checked=""> Disabled Checked</label></div>-->
-                                <!--</div>-->
-                                <!--</div>-->
+                                <div class="form-group">
+                                    <label for="price" class="col-sm-2 control-label">Price</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{price}" class="form-control1" id="price" placeholder="Enter Price" />
+                                        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
 
-                                <!--<div class="form-group">-->
-                                <!--<label for="selector1" class="col-sm-2 control-label">Dropdown Select</label>-->
-                                <!--<div class="col-sm-8"><select name="selector1" id="selector1" class="form-control1">-->
-                                <!--<option>Lorem ipsum dolor sit amet.</option>-->
-                                <!--<option>Dolore, ab unde modi est!</option>-->
-                                <!--<option>Illum, fuga minus sit eaque.</option>-->
-                                <!--<option>Consequatur ducimus maiores voluptatum minima.</option>-->
-                                <!--</select></div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-2 control-label">Multiple Select</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<select multiple="" class="form-control1">-->
-                                <!--<option>Option 1</option>-->
-                                <!--<option>Option 2</option>-->
-                                <!--<option>Option 3</option>-->
-                                <!--<option>Option 4</option>-->
-                                <!--<option>Option 5</option>-->
-                                <!--</select>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label for="txtarea1" class="col-sm-2 control-label">Textarea</label>-->
-                                <!--<div class="col-sm-8"><textarea name="txtarea1" id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>-->
-                                <!--</div>-->
+                                <div class="form-group">
+                                    <label for="stock" class="col-sm-2 control-label">Stock</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{stock}" class="form-control1" id="stock" placeholder="Enter Stock available" />
+                                        <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="discount" class="col-sm-2 control-label">Discount</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" th:field="*{discount}" class="form-control1" id="discount" placeholder="Enter Discount available" />
+                                        <span th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"
+                                              class="validation-message"></span>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="file" class="col-sm-2 control-label">Image</label>
@@ -121,9 +105,10 @@
                                         <input type="file" th:field="*{file}" class="form-control1" id="file"/>
                                         <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}"
                                               class="validation-message"></span>
-                                        <div th:if="${ category.getName() != null }"><img class="img-thumbnail"  th:src="@{|/admin/category/${category.getId() + '.gif'} |}"></div>
+                                        <div th:if="${ song.getTitle() != null }"><img class="img-thumbnail"  th:src=""></div>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="status" class="col-sm-2 control-label">Status</label>
@@ -139,13 +124,11 @@
 
                                 </div>
 
-
-
                                 <div class="panel-footer">
                                     <div class="row">
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <input class="btn-primary btn" type="submit" th:value="${button}">
-                                            <a th:href="@{/admin/category}" class="btn-default btn">Cancel</a>
+                                            <a th:href="@{/admin/song}" class="btn-default btn">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -153,6 +136,10 @@
                             </form>
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div>
 
