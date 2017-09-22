@@ -20,6 +20,7 @@ public class ValidImageSizeValidator implements ConstraintValidator<ImageValidat
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
         System.out.println("this is for test!");
         System.out.println(file.getSize());
+        System.out.println("Roshan");
         try {
             if(!file.isEmpty())
             {
