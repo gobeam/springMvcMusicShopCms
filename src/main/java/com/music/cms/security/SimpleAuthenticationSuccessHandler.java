@@ -26,10 +26,12 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         Collection <? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+            System.out.println(grantedAuthority.getAuthority());
+
+            if (grantedAuthority.getAuthority().equals("USER")) {
                 isUser = true;
                 break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+            } else if (grantedAuthority.getAuthority().equals("ADMIN")) {
                 isAdmin = true;
                 break;
             }
