@@ -69,13 +69,33 @@ public class User {
     @NotNull(message = "Role must be specified!", groups = {GroupValidationAdd.class,GroupValidationUpdate.class})
     private Integer role_id;
 
+    @Column(nullable = true)
+    private boolean accountNonExpired;
+
+    @Column(nullable = true)
+    private boolean accountNonLocked;
+
     // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
 
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
 
     public Integer getId() {
         return id;
