@@ -35,6 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private SimpleAuthenticationSuccessHandler successHandler;
 
     @Autowired
+    private SimpleAuthenticationFailureHandler failureHandler;
+
+    @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
         auth.authenticationProvider(authenticationProvider());
@@ -52,7 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin().successHandler(successHandler)
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/login")
+                .failureHandler(failureHandler)
+                //.failureUrl("/login?error=true")
 //                .defaultSuccessUrl("/admin/home")
                 .usernameParameter("email")
                 .passwordParameter("password")

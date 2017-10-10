@@ -8,20 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.stereotype.Repository;
 
+import javax.management.Query;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+@Repository
 public class UserDetailsDaoImpl implements UserDetailsDao{
 
-    private static final String SQL_USERS_UPDATE_LOCKED = "UPDATE USERS SET accountNonLocked = :accnonLocked WHERE username = :username ";
-    private static final String SQL_USERS_COUNT = "SELECT count(*) FROM USERS WHERE username = :username";
+    private static final String SQL_USERS_UPDATE_LOCKED = "UPDATE User SET accountNonLocked = :accnonLocked WHERE email = :email ";
+    private static final String SQL_USERS_COUNT = "SELECT count(*) FROM User WHERE email = :email";
 
-    private static final String SQL_USER_ATTEMPTS_GET = "SELECT * FROM USER_ATTEMPTS WHERE username = :username";
-    private static final String SQL_USER_ATTEMPTS_INSERT = "INSERT INTO USER_ATTEMPTS (USERNAME, ATTEMPTS, LASTMODIFIED) VALUES( :username , :attempts , :lastmodified)";
-    private static final String SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = attempts + 1, lastmodified = :lastmodified WHERE username = :username";
-    private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = 0, lastmodified = null WHERE username = :username";
+    private static final String SQL_USER_ATTEMPTS_GET = " FROM UserAttempts WHERE email = :email";
+    private static final String SQL_USER_ATTEMPTS_INSERT = "INSERT INTO UserAttempts (EMAIL, ATTEMPTS, LASTMODIFIED) VALUES( :email , :attempts , :lastmodified)";
+    private static final String SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS = "UPDATE UserAttempts SET attempts = attempts + 1, lastmodified = :lastmodified WHERE email = :email";
+    private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE UserAttempts SET attempts = 0, lastmodified = null WHERE email = :email";
 
 
     private static final int MAX_ATTEMPTS = 3;
@@ -32,7 +35,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 
 
     @Override
-    public void updateFailAttempts(String username) {
+    public void updateFailAttempts(String email) {
         Session session = null;
         Transaction tx = null;
 
@@ -40,31 +43,36 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
 
-            UserAttempts user = getUserAttempts(username);
+            UserAttempts user = getUserAttempts(email);
+            System.out.println("damn user Attmp");
+            System.out.println(user);
             if (user == null) {
-                if (isUserExists(username)) {
+                if (isUserExists(email)) {
                     // if no record, insert a new
-                    org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_INSERT);
-                    query.setParameter("username",String.format(username));
+                    org.hibernate.query.Query query = session.createNativeQuery(SQL_USER_ATTEMPTS_INSERT);
+                    query.setParameter("email",String.format(email));
                     query.setParameter("attempts",new Integer("1"));
                     query.setParameter("lastmodified",new Date());
+                    query.executeUpdate();
 
-                    //getJdbcTemplate().update(SQL_USER_ATTEMPTS_INSERT, new Object[] { username, 1, new Date() });
+                    //getJdbcTemplate().update(SQL_USER_ATTEMPTS_INSERT, new Object[] { email, 1, new Date() });
                 }
             } else {
 
-                if (isUserExists(username)) {
+                if (isUserExists(email)) {
                     // update attempts count, +1
-                    org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS);
+                    org.hibernate.query.Query query = session.createNativeQuery(SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS);
                     query.setParameter("lastmodified",new Date());
-                    query.setParameter("username",String.format(username));
+                    query.setParameter("email",String.format(email));
+                    query.executeUpdate();
                 }
 
                 if (user.getAttempts() + 1 >= MAX_ATTEMPTS) {
                     // locked user
-                    org.hibernate.query.Query query = session.createQuery(SQL_USERS_UPDATE_LOCKED);
+                    org.hibernate.query.Query query = session.createNativeQuery(SQL_USERS_UPDATE_LOCKED);
                     query.setParameter("accnonLocked",false);
-                    query.setParameter("username",String.format(username));
+                    query.setParameter("email",String.format(email));
+                    query.executeUpdate();
                     // throw exception
                     throw new LockedException("User Account is locked!");
                 }
@@ -88,14 +96,14 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
     }
 
     @Override
-    public UserAttempts getUserAttempts(String username) {
+    public UserAttempts getUserAttempts(String email) {
         Session session = null;
         Transaction tx = null;
         try {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_GET);
-            query.setParameter("username",String.format(username));
+            query.setParameter("email",String.format(email));
             tx.commit();
             return (UserAttempts)query.uniqueResult();
 
@@ -111,13 +119,12 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             if(session!=null){
                 session.close();
             }
-            return null;
         }
 
     }
 
     @Override
-    public void resetFailAttempts(String username) {
+    public void resetFailAttempts(String email) {
         Session session = null;
         Transaction tx = null;
 
@@ -126,7 +133,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             tx = session.beginTransaction();
 
             org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_RESET_ATTEMPTS);
-            query.setParameter("username",String.format(username));
+            query.setParameter("email",String.format(email));
             tx.commit();
         } catch (RuntimeException e) {
             try{
@@ -145,7 +152,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 
     }
 
-    private boolean isUserExists(String username) {
+    private boolean isUserExists(String email) {
         Session session = null;
         Transaction tx = null;
         boolean result = false;
@@ -156,7 +163,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             tx = session.beginTransaction();
 
             org.hibernate.query.Query query = session.createQuery(SQL_USERS_COUNT);
-            query.setParameter("username", String.format(username));
+            query.setParameter("email", String.format(email));
             tx.commit();
             Integer count = ((Number) query.uniqueResult()).intValue();
             if (count > 0) {

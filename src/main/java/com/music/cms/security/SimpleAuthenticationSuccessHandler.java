@@ -1,5 +1,7 @@
 package com.music.cms.security;
 
+import com.music.cms.dao.UserDetailsDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -18,9 +20,14 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    @Autowired
+    UserDetailsDao userDetailsDao;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+
+        userDetailsDao.resetFailAttempts(httpServletRequest.getParameter("email"));
+
         boolean isUser = false;
         boolean isAdmin = false;
         Collection <? extends GrantedAuthority> authorities = authentication.getAuthorities();
