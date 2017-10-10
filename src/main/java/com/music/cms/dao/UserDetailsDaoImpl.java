@@ -96,9 +96,21 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             tx = session.beginTransaction();
             org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_GET);
             query.setParameter("username",String.format(username));
+            tx.commit();
             return (UserAttempts)query.uniqueResult();
 
         } catch (EmptyResultDataAccessException e) {
+            try{
+                tx.rollback();
+            }catch(RuntimeException rne){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
             return null;
         }
 
@@ -106,22 +118,70 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 
     @Override
     public void resetFailAttempts(String username) {
+        Session session = null;
+        Transaction tx = null;
 
-        getJdbcTemplate().update(
-                SQL_USER_ATTEMPTS_RESET_ATTEMPTS, new Object[] { username });
+        try{
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+
+            org.hibernate.query.Query query = session.createQuery(SQL_USER_ATTEMPTS_RESET_ATTEMPTS);
+            query.setParameter("username",String.format(username));
+            tx.commit();
+        } catch (RuntimeException e) {
+            try{
+                tx.rollback();
+            }catch(RuntimeException rne){
+
+            }
+            throw e;
+        }finally{
+
+            if(session!=null){
+                session.close();
+            }
+        }
+
 
     }
 
     private boolean isUserExists(String username) {
-
+        Session session = null;
+        Transaction tx = null;
         boolean result = false;
 
-        int count = getJdbcTemplate().queryForObject(
-                SQL_USERS_COUNT, new Object[] { username }, Integer.class);
-        if (count > 0) {
-            result = true;
+
+        try {
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+
+            org.hibernate.query.Query query = session.createQuery(SQL_USERS_COUNT);
+            query.setParameter("username", String.format(username));
+            tx.commit();
+            Integer count = ((Number) query.uniqueResult()).intValue();
+            if (count > 0) {
+                result = true;
+            }
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rne) {
+
+            }
+            throw e;
+        } finally {
+
+            if (session != null) {
+                session.close();
+            }
+
+
         }
 
         return result;
+
+
     }
+
+
 }
