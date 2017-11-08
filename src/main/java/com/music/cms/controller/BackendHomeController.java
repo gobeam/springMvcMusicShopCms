@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class BackendHomeController {
@@ -94,7 +95,17 @@ public class BackendHomeController {
      * If users is already logged-in and tries to goto login page again, will be redirected to list page.
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(ModelMap model) {
+    public String loginPage(ModelMap model, HttpSession session) {
+        if(session.getAttribute("error") != null){
+            System.out.println(session.getAttribute("error"));
+            System.out.println("hareram");
+            model.addAttribute("isError",true);
+            model.addAttribute("error",session.getAttribute("error"));
+            session.removeAttribute("error");
+        }else{
+            model.addAttribute("isError",false);
+        }
+
         if (isCurrentAuthenticationAnonymous()) {
             model.addAttribute("title", "Admin Login");
             return "backend/login/login";

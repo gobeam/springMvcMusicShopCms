@@ -27,7 +27,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
     private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE UserAttempts SET attempts = 0, lastmodified = null WHERE email = :email";
 
 
-    private static final int MAX_ATTEMPTS = 6;
+    private static final int MAX_ATTEMPTS = 3;
 
     @Autowired
     private SessionFactory sessionFactory;

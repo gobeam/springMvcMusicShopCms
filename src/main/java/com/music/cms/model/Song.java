@@ -3,6 +3,7 @@ package com.music.cms.model;
 import com.music.cms.validator.ImageValidationMime;
 import com.music.cms.validator.ImageValidationSize;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,11 +30,12 @@ public class Song {
     private Long price;
 
     @NotNull(message = "Stock must be specified!")
-    @NumberFormat
+    @Range(min=0, max=10000)
     private Integer stock;
 
     @Column(nullable = true)
     @NumberFormat
+    @Range(min=1, max=100)
     private Long discount;
 
     @Lob @Basic(fetch = FetchType.LAZY)

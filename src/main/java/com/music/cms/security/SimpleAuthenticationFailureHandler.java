@@ -27,8 +27,9 @@ public class SimpleAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException,LockedException {
         try {
             userDetailsDao.updateFailAttempts(httpServletRequest.getParameter("email"));
+            httpServletRequest.getSession().setAttribute("error","Incorrect Email/Password");
 
-            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login?error='incorrect username'");
+            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login");
 
         } catch (LockedException exc) {
 
@@ -38,9 +39,11 @@ public class SimpleAuthenticationFailureHandler implements AuthenticationFailure
 
             if (userAttempts != null) {
                 Date lastAttempts = userAttempts.getLastModified();
-                error = "User account is locked! <br><br>Email : "
-                        + httpServletRequest.getParameter("email") + "<br>Last Attempts : " + lastAttempts;
-                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login?error="+error);
+                error = "User account is locked! </br>Email : "
+                        + httpServletRequest.getParameter("email") + "</br>Last Attempts : " + lastAttempts;
+
+                httpServletRequest.getSession().setAttribute("error",error);
+                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login");
                 //throw new LockedException("error");
             }
 
