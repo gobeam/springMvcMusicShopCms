@@ -224,6 +224,9 @@ public class User {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", status=" + status +
+                ", role_id=" + role_id +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
                 '}';
     }
 }

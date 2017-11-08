@@ -105,7 +105,7 @@
                                         <input type="file" th:field="*{file}" class="form-control1" id="file"/>
                                         <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}"
                                               class="validation-message"></span>
-                                        <div th:if="${ song.getTitle() != null }"><img class="img-thumbnail"  th:src=""></div>
+                                        <!--<div th:if="${ song.getTitle() != null }"><img class="img-thumbnail"  th:src=""></div>-->
                                     </div>
                                 </div>
 
@@ -113,11 +113,16 @@
                                 <div class="form-group">
                                     <label for="status" class="col-sm-2 control-label">Status</label>
                                     <div class="col-sm-8">
-                                        <div class="radio block"><label>
-
-                                            <input id="status" type="radio" th:field="*{status}" th:value="1" /> Active</label></div>
-                                        <div class="radio block"><label>
-                                            <input type="radio" th:field="*{status}" th:value="0" /> Inactive</label></div>
+                                        <div class="radio block">
+                                            <label>
+                                            <input id="status" type="radio" th:field="*{status}" th:value="1" /> Active
+                                            </label>
+                                        </div>
+                                        <div class="radio block">
+                                            <label>
+                                            <input type="radio" th:field="*{status}" th:value="0" /> Inactive
+                                            </label>
+                                        </div>
                                         <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
                                               class="validation-message"></span>
                                     </div>

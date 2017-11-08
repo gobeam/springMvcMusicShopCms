@@ -27,7 +27,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
     private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE UserAttempts SET attempts = 0, lastmodified = null WHERE email = :email";
 
 
-    private static final int MAX_ATTEMPTS = 3;
+    private static final int MAX_ATTEMPTS = 6;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -44,8 +44,6 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
             tx = session.beginTransaction();
 
             UserAttempts user = getUserAttempts(email);
-            System.out.println("damn user Attmp");
-            System.out.println(user);
             if (user == null) {
                 if (isUserExists(email)) {
                     // if no record, insert a new
