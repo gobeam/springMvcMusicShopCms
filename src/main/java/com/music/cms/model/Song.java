@@ -38,9 +38,8 @@ public class Song {
     @Range(min=1, max=100)
     private Long discount;
 
-    @Lob @Basic(fetch = FetchType.LAZY)
     @Column(nullable=true)
-    private byte[] image;
+    private String image;
 
     @Transient
     @ImageValidationSize
@@ -103,11 +102,11 @@ public class Song {
         this.discount = discount;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

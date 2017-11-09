@@ -2,6 +2,7 @@ package com.music.cms.service;
 
 import com.music.cms.dao.CategoryDao;
 import com.music.cms.model.Category;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,7 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
 
                 // BufferedImage to ByteArrayInputStream
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
-                ImageIO.write(resizeImageJpg, "jpg", os);
+                String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+                ImageIO.write(resizeImageJpg, ext, os);
                 byte[] bytes = os.toByteArray();
                 //InputStream is = new ByteArrayInputStream(os.toByteArray());
 
