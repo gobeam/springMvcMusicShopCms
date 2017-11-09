@@ -77,23 +77,23 @@ public class SongController {
             return "redirect:/admin/song/create";
         }
 
-        // uploadImage(song.getFile(),request);
-
         if (!song.getFile().isEmpty()) {
             try {
-
-
                 MultipartFile file  = song.getFile();
-
                 // Get the file and save it somewhere
-                byte[] bytes = file.getBytes();
-
+//                byte[] bytes = file.getBytes();
                 String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-                String fileName = generateUniqueFileName()+"."+ext;
+                String nameAndPath = UPLOADED_FOLDER + generateUniqueFileName()+"."+ext;
+//                Path path = Paths.get(UPLOADED_FOLDER + fileName);
+//                Files.write(path, bytes);
 
-                Path path = Paths.get(UPLOADED_FOLDER + fileName);
-                Files.write(path, bytes);
+                BufferedImage originalImage = ImageIO.read(file.getInputStream());
+                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                BufferedImage resizeImageJpg = cropImage(originalImage,20,20, type);
 
+                File outputFile = new File(nameAndPath);
+                outputFile.getParentFile().mkdirs();
+                ImageIO.write(resizeImageJpg, ext, outputFile);
 
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
@@ -102,7 +102,6 @@ public class SongController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
 
         songService.store(song);
@@ -111,10 +110,11 @@ public class SongController {
     }
 
 
-    private BufferedImage cropImage(BufferedImage originalImage,int height,int width, int type) {
+
+    private BufferedImage cropImage(BufferedImage originalImage,int width ,int height, int type) {
         BufferedImage resizedImage = new BufferedImage( width, height, type);//set width and height of image
         Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, 100, 100, null);
+        g.drawImage(originalImage, 0, 0, width, height, null);
         g.dispose();
 
         return resizedImage;
