@@ -17,7 +17,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ImageValidationSize {
 
-    String message() default "Image size should be not more than 200KB!";
+    String message() default "Image size should be not more than 300KB!";
 
     Class<?>[] groups() default {};
 

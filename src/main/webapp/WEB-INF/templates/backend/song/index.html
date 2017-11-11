@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Album Art</th>
                         <th>Singer</th>
                         <th>Stock</th>
                         <th>Action</th>
@@ -70,6 +71,7 @@
                     <tbody>
                     <tr th:each="song : ${songs}">
                         <td th:text="${song.title}">Tiger Nixon</td>
+                        <td><img th:src="@{|/image/${song.image} |}" class="img-responsive img-thumbnail"></td>
                         <td th:text="${song.singer}">Tiger Nixon</td>
                         <td th:text="${song.stock}">Tiger Nixon</td>
                         <td>

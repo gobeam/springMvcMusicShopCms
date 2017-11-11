@@ -106,95 +106,20 @@
             <div class="clearfix"></div>
         </div>
         <div class="music-info">
-            <div class="col-md-4 music-grids">
+            <div th:each="song : ${songs}" class="col-md-4 music-grids">
                 <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m1.jpg}" alt=""/>
+                    <img th:src="@{|/image/${song.image} |}" th:alt="@{ ${song.image}}"/>
                     <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
+                        <h4 th:text="${song.title}">MUSIC ALBUM</h4>
+                        <p th:text="${song.singer}">In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
                     </figcaption>
                 </figure>
             </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m2.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m3.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
+
             <div class="clearfix"></div>
         </div>
-        <div class="music-info two">
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m4.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m6.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m5.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="music-info two">
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m1.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m2.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 music-grids">
-                <figure class="effect-bubba">
-                    <img th:src="@{/resources/images/m3.jpg}" alt=""/>
-                    <figcaption>
-                        <h4>MUSIC ALBUM</h4>
-                        <p>In sit amet sapien eros Integer  in tincidunt labore et dolore magna aliqua</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+
+
     </div>
 </div>
 <!--//music-->

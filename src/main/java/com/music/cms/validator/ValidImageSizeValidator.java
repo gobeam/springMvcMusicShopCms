@@ -24,7 +24,7 @@ public class ValidImageSizeValidator implements ConstraintValidator<ImageValidat
         try {
             if(!file.isEmpty())
             {
-                if((file.getSize() /1024) > 200)
+                if((file.getSize() /1024) > 300)
                 {
                     System.out.println("this is val");
                     System.out.println((file.getSize() /1024));
